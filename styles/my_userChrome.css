@@ -1,0 +1,268 @@
+* {
+    font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
+    --button-border-radius: var(--border-radius-small) !important;
+    transition: background .1s;
+    --button-text-color: currentColor;
+    --button-text-color-primary: AccentColorText;
+    --color-accent-primary: AccentColor;
+    --color-accent-primary-hover: color-mix(in srgb, black 10%, var(--color-accent-primary));
+    --color-accent-primary-active: color-mix(in srgb, black 20%, var(--color-accent-primary));
+    --in-content-primary-button-text-color: var(--button-text-color-primary);
+    --in-content-primary-button-text-color-hover: var(--button-text-color-primary);
+    --in-content-primary-button-text-color-active: var(--button-text-color-primary);
+    --in-content-primary-button-background: var(--color-accent-primary);
+    --in-content-primary-button-background-hover: var(--color-accent-primary-hover);
+    --in-content-primary-button-background-active: var(--color-accent-primary-active);
+}
+
+#urlbar-container * {
+    transition: all .2s, background .1s;
+}
+
+.tab-background {
+    border-radius: var(--border-radius-small) !important;
+}
+#tabbrowser-tabs {
+    & .tabbrowser-tab[selected] .tab-background, #TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon {
+        background: color-mix(in srgb, var(--tab-selected-bgcolor) 70%, transparent) !important;
+    }
+    &:not([orient="vertical"]) .tabbrowser-tab[selected] .tab-background {
+        border-top: 2px solid AccentColor;
+    }
+    &[orient="vertical"] {
+        & .tab-background {
+            margin-block: 0 !important; /*缩小边距*/
+            /*min-height: 0 !important; /*紧凑化*/
+        }
+        & .tabbrowser-tab[selected] .tab-background {
+            border-left: 2px solid AccentColor;
+        }
+    }
+}
+#tabbrowser-arrowscrollbox[orient="vertical"] > #tabbrowser-arrowscrollbox-periphery > #tabs-newtab-button, #vertical-tabs-newtab-button {
+    border-radius: 4px !important;
+}
+
+/*带侧边栏时网页内容边角*/
+:root:not([inDOMFullscreen]), :root:not([inFullscreen]:not([macOSNativeFullscreen])) {
+    & #browser:has(#sidebar-main:not([hidden="true"])) {
+        & #tabbrowser-tabbox {
+            border-top-left-radius: var(--border-radius-medium);
+            & tabpanels, browser {
+                clip-path: rect(0 100% 100% 0 round 8px 0 0 0);
+            }
+        }
+        &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
+            border-top-right-radius: var(--border-radius-medium);
+            & tabpanels, browser {
+                clip-path: rect(0 100% 100% 0 round 0 8px 0 0);
+            }
+        }
+    }
+}
+
+
+#toolbar-menubar {
+    &:not([autohide="true"]) {
+        min-height: calc(var(--urlbar-min-height) + 2 * var(--urlbar-padding-block)) !important;
+    };
+    height: 0 !important;
+    transition: opacity var(--inactive-window-transition), min-height .1s !important;
+}
+#nav-bar {
+    border-top: 0.01px solid transparent !important;
+}
+html#main-window #navigator-toolbox {
+	border-bottom: none !important;
+    transition: margin-top .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+}
+#PersonalToolbar {
+    opacity: 1 !important;
+    transition: max-height .5s cubic-bezier(.34, .68, 0, 1), opacity .4s, background .1s; /*出现*/
+    &[collapsed="true"] {
+        visibility: visible !important;
+        opacity: 0.001 !important;
+        transition: max-height .3s cubic-bezier(.34, .68, 0, 1), opacity .2s, background .1s; /*消失*/
+    }
+}
+
+menu, menuitem, menucaption {
+    border-radius: var(--border-radius-small) !important;
+}
+#menubar-items menubar {
+    height: 100%;
+    margin: 5px 0 0 3px;
+    max-height: 30px;
+}
+#menubar-items menubar menu {
+    margin: 0 2px
+}
+
+vbox#sidebar-box { /*侧边栏应用*/
+    min-width: min(340px, 35vw) !important;
+    width: 0 !important;
+    transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
+    &[hidden="true"] {
+        display: block;
+        min-width: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        opacity: 0;
+    }
+    & stack {
+        width: calc(min(340px, 35vw) - var(--space-small)) !important;
+    }
+    & browser#sidebar {
+        background-color: color-mix(in srgb, -moz-sidebar 35%, transparent) !important;
+    }
+}
+:root[sidebar-expand-on-hover] {
+    #tabbrowser-tabs[orient="vertical"] {
+        &:not([expanded]) { /*垂直标签页收起时标签闪烁问题*/
+            & .tab-background {
+                width: auto !important;
+            }
+            & stack.tab-icon-stack {
+                width: 23.5px;
+            }
+            & .tab-label-container {
+                display: flex !important;
+            }
+        }
+    }
+}
+@media (-moz-windows-accent-color-in-titlebar) or (-moz-windows-mica) {
+    #browser, .browser-toolbar {
+        background-color: transparent !important;
+    }
+    #tabbrowser-tabpanels {
+        background: transparent !important;
+    }
+    @-moz-document url(about:blank) {
+        #tabbrowser-tabpanels .deck-selected browser {
+            opacity: 0;
+        }
+    }
+    /*Mica下边栏展开 v1
+    :root[sidebar-expand-on-hover] {
+        & #sidebar-main {
+            --b-c-b: var(--background-color-box);
+            transition: backdrop-filter .4s, background 0;
+            backdrop-filter: blur(0px);
+            &[sidebar-launcher-expanded], &[sidebar-ongoing-animations]:not([sidebar-launcher-expanded]) {
+                backdrop-filter: blur(32px) contrast(1.6);
+                &:not([sidebar-positionend]) {
+                    background: linear-gradient(to right, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
+                }
+                &[sidebar-positionend] {
+                    background: linear-gradient(to left, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
+                }
+            }
+        }
+    }*/
+}
+
+/*边栏展开 v2*/
+:root[sidebar-expand-on-hover] {
+    & #sidebar-main {
+        min-width: 51.2333px !important;
+        width: 0 !important;
+        transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
+    }
+    & /*body:not(:has(vbox#sidebar-box:not([hidden="true"]))) /*侧边栏应用打开时禁止展开*/ #sidebar-main[sidebar-launcher-expanded] {
+        min-width: max(220px, min(320px, 20%)) !important;
+    }
+    &{ /*悬浮式展开*/
+        & #sidebar-main {
+            --b-c-b: var(--background-color-box);
+            backdrop-filter: blur(0px);
+            &[sidebar-launcher-expanded], &[sidebar-ongoing-animations]:not([sidebar-launcher-expanded]) {
+                backdrop-filter: blur(32px) contrast(1.6);
+                &:not([sidebar-positionend]) {
+                    background: linear-gradient(to right, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
+                }
+                &[sidebar-positionend] {
+                    background: linear-gradient(to left, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
+                }
+            }
+        }
+    }
+    &{ /*挤压式展开
+        & #sidebar-main {
+            position: relative !important;
+        }
+        & #tabbrowser-tabbox { /*空白问题
+            &[sidebar-launcher-expanded][sidebar-launcher-hovered]:not([sidebar-panel-open]), &[sidebar-ongoing-animations]:not([sidebar-launcher-expanded], [sidebar-panel-open]) {
+                &:not([sidebar-positionend]) {
+                    margin-inline-start: 0 !important;
+                }
+                &[sidebar-positionend] {
+                    margin-inline-end: 0 !important;
+                }
+            }
+        }
+        & #sidebar-box { /*同上，空白问题
+            &[sidebar-panel-open][sidebar-launcher-hovered][sidebar-launcher-expanded], &[sidebar-ongoing-animations][sidebar-panel-open] {
+                &:not([sidebar-positionend]) {
+                    margin-inline-start: 0 !important;
+                }
+                &[sidebar-positionend] {
+                    margin-inline-end: 0 !important;
+                }
+            }
+        }*/
+    }
+}
+
+:is(label, description)[value][crop]::before {
+    text-overflow: clip;
+}
+
+@keyframes documentIn {
+    0% {
+        transform: translateY(20%);
+    }
+    0%, 20% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+@keyframes documentOut {
+    100% {
+        transform: translateY(20%);
+    }
+    100%, 80% {
+        opacity: 0;
+    }
+    0% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+#tabbrowser-tabbox hbox.browserSidebarContainer {
+    background-color: color-mix(in srgb, var(--tabpanel-background-color) 50%, transparent) !important;
+    /*animation: documentOut .2s cubic-bezier(.34, .68, 0, 1);*/
+    &.deck-selected {
+        animation: documentIn .2s cubic-bezier(.34, .68, 0, 1);
+    }
+}
+
+/*Thanks to Frosted Glass Theme: An enhancement to vscode appearance.
+@keyframes fgtDropdown {
+    0% {
+        transform: translateY(-100%);
+    }
+    0%, 99% {
+        pointer-events: none;
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+menupopup {
+    animation: 300ms cubic-bezier(0, 0.8, 0.2, 1) fgtDropdown;
+}*/

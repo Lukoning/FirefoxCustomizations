@@ -1,0 +1,55 @@
+* {
+    font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
+}
+
+@-moz-document 
+url(about:about),
+url(about:addons),
+url(about:blank),
+url(about:buildconfig),
+url(about:cache),
+url(about:certificate),
+url(about:checkerboard),
+url(about:compat),
+url(about:config),
+url(about:crashes),
+url(about:credits),
+url(about:debugging),
+url(about:deleteprofile),
+url(about:downloads),
+url(about:editprofile),
+url(about:home),
+url(about:license),
+url(about:logging),
+url(about:logins),
+url(about:loginsimportreport),
+url(about:logo),
+url(about:memory),
+url(about:mozilla),
+url(about:networking),
+url(about:newprofile),
+url(about:newtab),
+url(about:policies),
+url(about:preferences),
+url(about:privatebrowsing),
+url(about:processes),
+url(about:profiles),
+url(about:profiling),
+url(about:protections),
+url(about:rights),
+url(about:robots),
+url(about:serviceworkers),
+url(about:studies),
+url(about:support),
+url(about:sync-log),
+url(about:telemetry),
+url(about:third-party),
+url(about:unloads),
+url(about:url-classifier),
+url(about:webrtc),
+url(about:welcome),
+url(about:windows-messages) {
+    * {
+        transition: background .1s, color .1s;
+    }
+}
