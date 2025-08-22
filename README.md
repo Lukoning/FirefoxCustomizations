@@ -13,6 +13,8 @@
 <code>widget.windows.mica.toplevel-backdrop</code>设为<code>1</code><br>
 </p>
 
+**不建议使用非默认“系统主题—自动”主题**
+
 ### 使用方法
 1. 下载这些文件的压缩包：点击 About 左边的 Code 按钮（一般是绿色的），然后点击“Download ZIP”
 
