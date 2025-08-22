@@ -1,55 +1,70 @@
-* {
-    font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
-}
+/*
+browser.tabs.allow_transparent_browser = true;
+browser.theme.native-theme = true;
+widget.non-native-theme.use-theme-accent = true;
+widget.windows.mica = true;
+widget.windows.mica.popups = 2;
+widget.windows.mica.toplevel-backdrop = 1;
+以下内容建议在 about:config 调整到以上设置且使用主题“系统主题—自动”后食用。
+如想更换其他主题，请关闭 widget.windows.mica*/
 
-@-moz-document 
-url(about:about),
-url(about:addons),
-url(about:blank),
-url(about:buildconfig),
-url(about:cache),
-url(about:certificate),
-url(about:checkerboard),
-url(about:compat),
-url(about:config),
-url(about:crashes),
-url(about:credits),
-url(about:debugging),
-url(about:deleteprofile),
-url(about:downloads),
-url(about:editprofile),
-url(about:home),
-url(about:license),
-url(about:logging),
-url(about:logins),
-url(about:loginsimportreport),
-url(about:logo),
-url(about:memory),
-url(about:mozilla),
-url(about:networking),
-url(about:newprofile),
-url(about:newtab),
-url(about:policies),
-url(about:preferences),
-url(about:privatebrowsing),
-url(about:processes),
-url(about:profiles),
-url(about:profiling),
-url(about:protections),
-url(about:rights),
-url(about:robots),
-url(about:serviceworkers),
-url(about:studies),
-url(about:support),
-url(about:sync-log),
-url(about:telemetry),
-url(about:third-party),
-url(about:unloads),
-url(about:url-classifier),
-url(about:webrtc),
-url(about:welcome),
-url(about:windows-messages) {
-    * {
-        transition: background .1s, color .1s;
+html, body {
+    color: light-dark(#1A1A1A, #FFF);
+    /*background-color: transparent;
+    注释掉是因为
+    在 browser.tabs.allow_transparent_browser 和 widget.windows.mica 为 true 时
+    这个值默认就是 transparent ……*/
+}
+@-moz-document url-prefix(about:) {
+    html, body, window {
+        background-color: transparent !important;
+        & * {
+            font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
+            --button-border-radius: var(--border-radius-small) !important;
+            transition: background .1s, color .1s;
+            --button-text-color: currentColor;
+            --button-text-color-primary: AccentColorText;
+            --color-accent-primary: AccentColor;
+            --color-accent-primary-hover: color-mix(in srgb, white 10%, var(--color-accent-primary));
+            --color-accent-primary-active: color-mix(in srgb, black 10%, var(--color-accent-primary));
+            --in-content-focus-outline-color: var(--color-accent-primary);
+            --focus-outline-color: var(--color-accent-primary);
+            --in-content-primary-button-text-color: var(--button-text-color-primary);
+            --in-content-primary-button-text-color-hover: var(--button-text-color-primary);
+            --in-content-primary-button-text-color-active: var(--button-text-color-primary);
+            --in-content-primary-button-background: var(--color-accent-primary);
+            --in-content-primary-button-background-hover: var(--color-accent-primary-hover);
+            --in-content-primary-button-background-active: var(--color-accent-primary-active);
+            --in-content-item-selected: var(--color-accent-primary);
+            --in-content-item-selected-text: var(--button-text-color-primary);
+            --in-content-item-hover: color-mix(in srgb, var(--color-accent-primary) 20%, transparent);
+            --in-content-item-hover-text: var(--button-text-color-primary);
+            --color-white: #FFF;
+            --color-gray-80: #1A1A1A;
+            --link-color: var(--color-accent-primary);
+            --link-color-hover: color-mix(in srgb, white 10%, var(--color-accent-primary));
+            --link-color-active: color-mix(in srgb, black 10%, var(--color-accent-primary));
+            --link-color-visited: color-mix(in srgb, red 30%, var(--color-accent-primary));
+            --in-content-page-background: transparent !important;
+            --fxview-background-color: transparent !important;
+            --in-content-box-info-background: transparent !important;
+            --panel-background: light-dark(var(--color-white), var(--color-gray-80)) !important;
+            /*--background-color-box: color-mix(in srgb, var(--panel-background) 35%, transparent) !important;
+            --newtab-background-color-secondary: var(--color-gray-80) !important;*/
+            transition: background .1s, color .1s;
+        }
     }
+}
+@-moz-document url-prefix(about:preferences) {
+    /*.sticky-container {
+        background: transparent !important;
+        width: fit-content !important;
+        float: right;
+        & #searchInput {
+            margin: 20px 0 0 0 !important;
+        }
+        &+* {
+            padding-top: 20px !important;
+        }
+    }*/
 }

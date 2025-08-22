@@ -1,7 +1,7 @@
 * {
     font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
     --button-border-radius: var(--border-radius-small) !important;
-    transition: background .1s;
+    transition: background .1s, color .1s;
     --button-text-color: currentColor;
     --button-text-color-primary: AccentColorText;
     --color-accent-primary: AccentColor;
@@ -13,73 +13,175 @@
     --in-content-primary-button-background: var(--color-accent-primary);
     --in-content-primary-button-background-hover: var(--color-accent-primary-hover);
     --in-content-primary-button-background-active: var(--color-accent-primary-active);
+    --link-color: var(--color-accent-primary);
+    --link-color-hover: color-mix(in srgb, white 10%, var(--color-accent-primary));
+    --link-color-active: color-mix(in srgb, black 10%, var(--color-accent-primary));
+    --link-color-visited: color-mix(in srgb, red 30%, var(--color-accent-primary));
+    --toolbar-start-end-padding: 4px !important;
+    --toolbarbutton-outer-padding: 1px !important;
+}
+
+/*对话框居中修复*/
+.dialogStack:not(.content-prompt-dialog), #window-modal-dialog/*这是？*/
+.dialogOverlay {
+    align-items: center !important;
+    height: 100% !important;
+    width: 100% !important;
+    &>.dialogBox {
+        margin: auto !important;
+    }
+}
+#window-modal-dialog {/*你都居中了，那就一起居中吧!*/
+    height: 100% !important;
+    width: 100% !important;
+}
+
+
+.titlebar-buttonbox {
+    padding: 5px 4px 4px 0 !important;
+    toolbarbutton {
+        padding: 0 11px !important;
+        border-radius: var(--border-radius-small);
+        &::before {
+            transform: translateY(1px);
+        }
+        /*&::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            width: 34px;
+        }*/
+    }
+}
+:root:not([chromehidden~="menubar"], [inFullscreen])
+#toolbar-menubar[autohide="false"]
+~ :is(#TabsToolbar, #nav-bar)
+> .titlebar-buttonbox-container {
+    
 }
 
 #urlbar-container * {
-    transition: all .2s, background .1s;
+    transition: all .2s, background .1s, color .1s;
+}
+#urlbar-searchmode-switcher {
+    height: 28px !important;
 }
 
 .tab-background {
     border-radius: var(--border-radius-small) !important;
 }
-#tabbrowser-tabs {
-    & .tabbrowser-tab[selected] .tab-background, #TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon {
+#tabbrowser-tabs {/*标签页*/
+    /*背景*/
+    .tabbrowser-tab[visuallyselected] .tab-background, #TabsToolbar #firefox-view-button[open] > .toolbarbutton-icon {
         background: color-mix(in srgb, var(--tab-selected-bgcolor) 70%, transparent) !important;
     }
-    &:not([orient="vertical"]) .tabbrowser-tab[selected] .tab-background {
-        border-top: 2px solid AccentColor;
+    &:not([orient="vertical"]) .tabbrowser-tab[visuallyselected] .tab-background {
+        border-top: 2px solid AccentColor;/*横向标签页上边框*/
     }
     &[orient="vertical"] {
-        & .tab-background {
-            margin-block: 0 !important; /*缩小边距*/
+        .tab-background {
+            /*margin-block: 0 !important; /*缩小边距1*/
             /*min-height: 0 !important; /*紧凑化*/
         }
-        & .tabbrowser-tab[selected] .tab-background {
-            border-left: 2px solid AccentColor;
+        .tabbrowser-tab[visuallyselected] .tab-background {
+            border-left: 2px solid AccentColor;/*左侧垂直标签页左边框*/
+        }
+        .tabbrowser-tab {
+            padding-block: 0 !important; /*缩小边距2*/
+        }
+        &{ /*新标签页按钮*/
+            #tabs-newtab-button { /*溢出前新标签页按钮
+                margin-block: 0 !important;*/
+                image {
+                    transform: translateY(-1px);
+                }
+            }
+            #vertical-tabs-newtab-button {/* 溢出后新标签页按钮
+                margin-block: -4px -3px !important;*/
+                label {
+                    transform: translateY(1px);
+                }
+            }
+        }
+        #tabbrowser-arrowscrollbox {
+            &::part(scrollbutton-up), &::part(scrollbutton-down) { /*显示溢出箭头*/
+                display: flex !important;
+            }
         }
     }
 }
+#sidebar-main[sidebar-positionend] {
+    #tabbrowser-tabs {
+        .tabbrowser-tab[visuallyselected] .tab-background {
+            border-left: none;
+            border-right: 2px solid AccentColor;/*右侧垂直标签页右边框*/
+        }
+    }
+}
+
+#tabbrowser-arrowscrollbox[orient="vertical"] {
+    &::part(scrollbutton-up), &::part(scrollbutton-down) {
+        display: flex !important;
+    }
+}
+
 #tabbrowser-arrowscrollbox[orient="vertical"] > #tabbrowser-arrowscrollbox-periphery > #tabs-newtab-button, #vertical-tabs-newtab-button {
     border-radius: 4px !important;
 }
 
 /*带侧边栏时网页内容边角*/
 :root:not([inDOMFullscreen]), :root:not([inFullscreen]:not([macOSNativeFullscreen])) {
-    & #browser:has(#sidebar-main:not([hidden="true"])) {
-        & #tabbrowser-tabbox {
+    #browser:has(#sidebar-main:not([hidden="true"])) {
+        #tabbrowser-tabbox {
             border-top-left-radius: var(--border-radius-medium);
-            & tabpanels, browser {
+            tabpanels, browser {
                 clip-path: rect(0 100% 100% 0 round 8px 0 0 0);
             }
         }
         &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
             border-top-right-radius: var(--border-radius-medium);
-            & tabpanels, browser {
+            tabpanels, browser {
                 clip-path: rect(0 100% 100% 0 round 0 8px 0 0);
             }
         }
     }
 }
 
-
+/*#TabsToolbar, #toolbar-menubar {
+    padding: 0 calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)) !important;
+    .titlebar-buttonbox-container {
+        transform: translateX(calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)));
+    }
+}*/
 #toolbar-menubar {
+    height: 0 !important;
+    transition: opacity var(--inactive-window-transition), min-height .1s !important;
     &:not([autohide="true"]) {
         min-height: calc(var(--urlbar-min-height) + 2 * var(--urlbar-padding-block)) !important;
     };
-    height: 0 !important;
-    transition: opacity var(--inactive-window-transition), min-height .1s !important;
 }
-#nav-bar {
-    border-top: 0.01px solid transparent !important;
+#menubar-items menubar {
+    height: 100%;
+    margin: 5px 0 0 0;
+    padding: 0 var(--toolbarbutton-outer-padding);
+    max-height: 30px;
+    menu {
+        margin: 0 2px
+    }
+}
+#nav-bar-customization-target {/*垂直标签页+最大化时整个顶栏的顶部都能拖，与 MS Edge 的行为一致*/
+    border-top: 1px solid transparent !important;
 }
 html#main-window #navigator-toolbox {
 	border-bottom: none !important;
     transition: margin-top .4s cubic-bezier(.34, .68, 0, 1), background .1s;
 }
 #PersonalToolbar {
+    padding-inline: 2px;
     opacity: 1 !important;
     transition: max-height .5s cubic-bezier(.34, .68, 0, 1), opacity .4s, background .1s; /*出现*/
-    &[collapsed="true"] {
+    &[collapsed="true"] { /*隐藏时*/
         visibility: visible !important;
         opacity: 0.001 !important;
         transition: max-height .3s cubic-bezier(.34, .68, 0, 1), opacity .2s, background .1s; /*消失*/
@@ -89,17 +191,9 @@ html#main-window #navigator-toolbox {
 menu, menuitem, menucaption {
     border-radius: var(--border-radius-small) !important;
 }
-#menubar-items menubar {
-    height: 100%;
-    margin: 5px 0 0 3px;
-    max-height: 30px;
-}
-#menubar-items menubar menu {
-    margin: 0 2px
-}
 
-vbox#sidebar-box { /*侧边栏应用*/
-    min-width: min(340px, 35vw) !important;
+/*vbox#sidebar-box { 侧边栏应用
+    min-width: min(340px, 35%) !important;
     width: 0 !important;
     transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
     &[hidden="true"] {
@@ -109,23 +203,67 @@ vbox#sidebar-box { /*侧边栏应用*/
         margin: 0 !important;
         opacity: 0;
     }
-    & stack {
-        width: calc(min(340px, 35vw) - var(--space-small)) !important;
+    stack {
+        width: calc(min(340px, 35%) - var(--space-small)) !important;
     }
-    & browser#sidebar {
+    browser#sidebar {
         background-color: color-mix(in srgb, -moz-sidebar 35%, transparent) !important;
+    }
+}*/
+:root { /*侧边栏应用 v2*/
+    --my-sidebar-box-width: max(min(340px, 25vw), 220px);
+    #sidebar-box {
+        min-width: 0 !important;
+        width: 0 !important;
+        &[hidden="true"] {
+            display: block;
+            margin: 0 !important;
+            opacity: 0;
+        }
+        stack {
+            width: var(--my-sidebar-box-width) !important;
+        }
+        browser#sidebar {
+            background-color: color-mix(in srgb, -moz-sidebar 35%, transparent) !important;
+        }
+    }
+    #browser:not(:has(#sidebar-main[sidebar-positionend])) #sidebar-box {
+        padding-right: 0 !important; /*左侧时与网页的边距*/
+    }
+    #browser:has(#sidebar-main[sidebar-positionend]) #sidebar-box {
+        transform: translateX(max(-340px, -35vw));
+        margin-left: 0 !important; /*右侧时与网页的边距(居然与左侧的不统一…)*/
+    }
+    #tabbrowser-tabbox {
+        transform: translateX(0);
+        transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+    }
+    #browser:has(#sidebar-box:not([hidden=true])) {
+        #tabbrowser-tabbox {
+            transform: translateX(round(calc(var(--my-sidebar-box-width) + 6px), 1px));
+        }
+        &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
+            transform: translateX(round(calc(-1 * var(--my-sidebar-box-width) - 6px), 1px));
+        }
     }
 }
 :root[sidebar-expand-on-hover] {
+    &{ /*FF141.0 开关侧边栏时 新侧边栏功能性按钮组高度异常*/
+        #sidebar-main[sidebar-ongoing-animations] {
+            &:not([sidebar-launcher-expanded]):not(:has(button-group.actions-list.overflow-button)) { /*关*/
+                padding-bottom: 44.8px !important;
+            }
+        }
+    }
     #tabbrowser-tabs[orient="vertical"] {
         &:not([expanded]) { /*垂直标签页收起时标签闪烁问题*/
-            & .tab-background {
+            .tab-background {
                 width: auto !important;
             }
-            & stack.tab-icon-stack {
+            stack.tab-icon-stack {
                 width: 23.5px;
             }
-            & .tab-label-container {
+            .tab-label-container {
                 display: flex !important;
             }
         }
@@ -145,7 +283,7 @@ vbox#sidebar-box { /*侧边栏应用*/
     }
     /*Mica下边栏展开 v1
     :root[sidebar-expand-on-hover] {
-        & #sidebar-main {
+        #sidebar-main {
             --b-c-b: var(--background-color-box);
             transition: backdrop-filter .4s, background 0;
             backdrop-filter: blur(0px);
@@ -164,89 +302,126 @@ vbox#sidebar-box { /*侧边栏应用*/
 
 /*边栏展开 v2*/
 :root[sidebar-expand-on-hover] {
-    & #sidebar-main {
+    #sidebar-main {
         min-width: 51.2333px !important;
         width: 0 !important;
-        transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
+        transition: min-width .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+        &[sidebar-ongoing-animations] * {
+            scrollbar-width: none;
+        }
     }
-    & /*body:not(:has(vbox#sidebar-box:not([hidden="true"]))) /*侧边栏应用打开时禁止展开*/ #sidebar-main[sidebar-launcher-expanded] {
-        min-width: max(220px, min(320px, 20%)) !important;
+    body:not(:has(vbox#sidebar-box:not([hidden="true"]))) /*侧边栏应用打开时禁止展开，适用挤压式展开*/
+    #sidebar-main[sidebar-launcher-expanded] {
+        min-width: max(220px, min(320px, 20vw)) !important;
     }
-    &{ /*悬浮式展开*/
-        & #sidebar-main {
+    &{ /*悬浮式展开
+        #sidebar-main {
             --b-c-b: var(--background-color-box);
             backdrop-filter: blur(0px);
             &[sidebar-launcher-expanded], &[sidebar-ongoing-animations]:not([sidebar-launcher-expanded]) {
                 backdrop-filter: blur(32px) contrast(1.6);
                 &:not([sidebar-positionend]) {
-                    background: linear-gradient(to right, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
+                    background: linear-gradient(to right, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%) !important;
                 }
                 &[sidebar-positionend] {
-                    background: linear-gradient(to left, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%)  !important;
-                }
-            }
-        }
-    }
-    &{ /*挤压式展开
-        & #sidebar-main {
-            position: relative !important;
-        }
-        & #tabbrowser-tabbox { /*空白问题
-            &[sidebar-launcher-expanded][sidebar-launcher-hovered]:not([sidebar-panel-open]), &[sidebar-ongoing-animations]:not([sidebar-launcher-expanded], [sidebar-panel-open]) {
-                &:not([sidebar-positionend]) {
-                    margin-inline-start: 0 !important;
-                }
-                &[sidebar-positionend] {
-                    margin-inline-end: 0 !important;
-                }
-            }
-        }
-        & #sidebar-box { /*同上，空白问题
-            &[sidebar-panel-open][sidebar-launcher-hovered][sidebar-launcher-expanded], &[sidebar-ongoing-animations][sidebar-panel-open] {
-                &:not([sidebar-positionend]) {
-                    margin-inline-start: 0 !important;
-                }
-                &[sidebar-positionend] {
-                    margin-inline-end: 0 !important;
+                    background: linear-gradient(to left, var(--b-c-b) 20%, color-mix(in srgb, var(--b-c-b) 70%, transparent) 100%) !important;
                 }
             }
         }*/
     }
+    &{ /*挤压式展开 v2*/
+        #sidebar-main {
+            border: none !important;
+            background: transparent !important;
+            .tabbrowser-tab{
+                max-width: none !important;
+            }
+        }
+        #tabbrowser-tabbox {
+            transform: translateX(0);
+            transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+        }
+        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden=true]))) {
+            #tabbrowser-tabbox {
+                transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
+            }
+            &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
+                transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
+            }
+        }
+    }
+    &{ /*挤压式展开 v2 优化版 优化个鬼！谁特么加动画加的脚本动画
+        #sidebar-main {
+            border: none !important;
+            transition: background .1s !important;
+            animation: none !important;
+            z-index: 0;
+            > html:sidebar-main {
+                animation: none !important;
+            }
+            .tabbrowser-tab {
+                max-width: none !important;
+                &[visuallyselected] {
+                    min-width: 51.2333px !important;
+                    width: 0 !important;
+                    transition: min-width .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+                }
+            }
+            &[sidebar-launcher-expanded], &[sidebar-ongoing-animations] {
+                min-width: max(220px, min(320px, 20vw)) !important;
+                width: max(220px, min(320px, 20vw)) !important;
+                max-width: max(220px, min(320px, 20vw)) !important;
+                &[sidebar-launcher-expanded] .tabbrowser-tab[visuallyselected] {
+                    min-width: max(220px, min(320px, 20vw)) !important;
+                }
+            }
+        }
+        #tabbrowser-tabbox {
+            transform: translateX(0);
+            transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+            z-index: 10;
+        }
+        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden=true]))) {
+            #tabbrowser-tabbox {
+                transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
+            }
+            &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
+                transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
+            }
+        }*/
+    }
 }
-
+/*部分文本去掉省略号*/
 :is(label, description)[value][crop]::before {
     text-overflow: clip;
 }
 
+/*标签页切换动画*/
 @keyframes documentIn {
     0% {
-        transform: translateY(20%);
-    }
-    0%, 20% {
+        transform: translateY(100px);
         opacity: 0;
     }
     100% {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0px);
     }
 }
 @keyframes documentOut {
     100% {
-        transform: translateY(20%);
-    }
-    100%, 80% {
+        transform: translateY(100px);
         opacity: 0;
     }
     0% {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0px);
     }
 }
-#tabbrowser-tabbox hbox.browserSidebarContainer {
-    background-color: color-mix(in srgb, var(--tabpanel-background-color) 50%, transparent) !important;
-    /*animation: documentOut .2s cubic-bezier(.34, .68, 0, 1);*/
+#tabbrowser-tabbox hbox.browserSidebarContainer, #customization-container {
+    background-color: color-mix(in srgb, var(--tabpanel-background-color) 35%, transparent) !important;
+    /*animation: documentOut .3s cubic-bezier(.34, .68, 0, 1);*/
     &.deck-selected {
-        animation: documentIn .2s cubic-bezier(.34, .68, 0, 1);
+        animation: documentIn .3s cubic-bezier(.34, .68, 0, 1);
     }
 }
 
