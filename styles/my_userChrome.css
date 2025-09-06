@@ -5,29 +5,51 @@
     --button-text-color: currentColor;
     --button-text-color-primary: AccentColorText;
     --color-accent-primary: AccentColor;
-    --color-accent-primary-hover: color-mix(in srgb, black 10%, var(--color-accent-primary));
-    --color-accent-primary-active: color-mix(in srgb, black 20%, var(--color-accent-primary));
+    --color-accent-primary-hover: color-mix(in srgb, white 10%, var(--color-accent-primary));
+    --color-accent-primary-active: color-mix(in srgb, black 10%, var(--color-accent-primary));
+    --button-text-color-primary: var(--button-text-color-primary);
+    --button-text-color-primary-hover: var(--button-text-color-primary-hover);
+    --button-text-color-primary-active: var(--button-text-color-primary-active);
     --in-content-primary-button-text-color: var(--button-text-color-primary);
-    --in-content-primary-button-text-color-hover: var(--button-text-color-primary);
-    --in-content-primary-button-text-color-active: var(--button-text-color-primary);
+    --in-content-primary-button-text-color-hover: var(--button-text-color-primary-hover);
+    --in-content-primary-button-text-color-active: var(--button-text-color-primary-active);
+    --button-background-color-primary: var(--color-accent-primary);
+    --button-background-color-primary-hover: var(--color-accent-primary-hover);
+    --button-background-color-primary-active: var(--color-accent-primary-active);
     --in-content-primary-button-background: var(--color-accent-primary);
     --in-content-primary-button-background-hover: var(--color-accent-primary-hover);
     --in-content-primary-button-background-active: var(--color-accent-primary-active);
     --link-color: var(--color-accent-primary);
-    --link-color-hover: color-mix(in srgb, white 10%, var(--color-accent-primary));
-    --link-color-active: color-mix(in srgb, black 10%, var(--color-accent-primary));
+    --link-color-hover: var(--color-accent-primary-hover);
+    --link-color-active: var(--color-accent-primary-active);
     --link-color-visited: color-mix(in srgb, red 30%, var(--color-accent-primary));
     --toolbar-start-end-padding: 4px !important;
     --toolbarbutton-outer-padding: 1px !important;
 }
 
+/*html:not(:has(#tabbrowser-tabbox)) {
+    background-color: transparent !important;
+    background-image: image-set(url("chrome://branding/content/about-logo.png"), url("chrome://branding/content/about-logo@2x.png") 2x) no-repeat center !important;
+}*/
+
+/*PWA工具栏左边距修复*/
+:root[taskbartab] toolbar .customization-target > *:not(:is(
+    #back-button, #forward-button, #stop-reload-button, #customizableui-special-spring1, #vertical-spacer,
+    #customizableui-special-spring2, #downloads-button, #unified-extensions-button, .unified-extensions-item,
+    #save-page-button, #print-button, #find-button, #zoom-controls, #edit-controls, #characterencoding-button,
+    #email-link-button, #screenshot-button, #nav-bar-overflow-button, #fullscreen-button, #urlbar-container) ~ *)
+{
+    &:is(toolbarbutton), &:is(toolbaritem) > toolbarbutton {
+        padding-inline-start: var(--toolbar-start-end-padding) !important;
+    }
+}
+
 /*对话框居中修复*/
-.dialogStack:not(.content-prompt-dialog), #window-modal-dialog/*这是？*/
+.dialogStack:not(.content-prompt-dialog),#window-modal-dialog/*这是？*/
 .dialogOverlay {
-    align-items: center !important;
     height: 100% !important;
     width: 100% !important;
-    &>.dialogBox {
+    & .dialogBox {
         margin: auto !important;
     }
 }
@@ -58,7 +80,8 @@
 #toolbar-menubar[autohide="false"]
 ~ :is(#TabsToolbar, #nav-bar)
 > .titlebar-buttonbox-container {
-    
+    max-height: 41px !important;
+    margin-bottom: -5px !important;
 }
 
 #urlbar-container * {
@@ -154,6 +177,13 @@
         transform: translateX(calc(var(--toolbar-start-end-padding) - var(--toolbarbutton-outer-padding)));
     }
 }*/
+#TabsToolbar { /*水平标签页工具栏高度修改*/
+	margin-bottom: -5px !important;
+	max-height: 41px !important;
+    #TabsToolbar-customization-target {
+        transform: translateY(1px);
+    }
+}
 #toolbar-menubar {
     height: 0 !important;
     transition: opacity var(--inactive-window-transition), min-height .1s !important;
@@ -172,6 +202,9 @@
 }
 #nav-bar-customization-target {/*垂直标签页+最大化时整个顶栏的顶部都能拖，与 MS Edge 的行为一致*/
     border-top: 1px solid transparent !important;
+}
+#nav-bar {/*隐藏掉奇怪的线*/
+    border-top: none !important;
 }
 html#main-window #navigator-toolbox {
 	border-bottom: none !important;

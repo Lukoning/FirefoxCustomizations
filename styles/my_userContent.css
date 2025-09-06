@@ -54,6 +54,9 @@ html, body {
             transition: background .1s, color .1s;
         }
     }
+    .dialogBox {
+        background-color: var(--panel-background) !important;
+    }
 }
 @-moz-document url-prefix(about:preferences) {
     /*.sticky-container {
