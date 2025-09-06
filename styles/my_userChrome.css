@@ -80,8 +80,7 @@
 #toolbar-menubar[autohide="false"]
 ~ :is(#TabsToolbar, #nav-bar)
 > .titlebar-buttonbox-container {
-    max-height: 41px !important;
-    margin-bottom: -5px !important;
+
 }
 
 #urlbar-container * {
@@ -473,4 +472,5 @@ menu, menuitem, menucaption {
 
 menupopup {
     animation: 300ms cubic-bezier(0, 0.8, 0.2, 1) fgtDropdown;
+
 }*/
