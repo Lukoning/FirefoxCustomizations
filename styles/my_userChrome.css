@@ -153,9 +153,9 @@
 }
 
 /*带侧边栏时网页内容边角*/
-:root:not([inDOMFullscreen]), :root:not([inFullscreen]:not([macOSNativeFullscreen])) {
-    #browser:has(#sidebar-main:not([hidden="true"])) {
-        #tabbrowser-tabbox {
+:root:not([inDOMFullscreen], [inFullscreen]:not([macOSNativeFullscreen]), [taskbartab]) {
+    #browser:has(#sidebar-main:not([hidden]:not([sidebar-panel-open]))) {
+        &:not(:has(#sidebar-main[sidebar-positionend])) #tabbrowser-tabbox {
             border-top-left-radius: var(--border-radius-medium);
             tabpanels, browser {
                 clip-path: rect(0 100% 100% 0 round 8px 0 0 0);
@@ -228,7 +228,7 @@ menu, menuitem, menucaption {
     min-width: min(340px, 35%) !important;
     width: 0 !important;
     transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
-    &[hidden="true"] {
+    &[hidden] {
         display: block;
         min-width: 0 !important;
         padding: 0 !important;
@@ -243,17 +243,20 @@ menu, menuitem, menucaption {
     }
 }*/
 :root { /*侧边栏应用 v2*/
-    --my-sidebar-box-width: max(min(340px, 25vw), 220px);
+    --lukoning-sidebar-box-width: max(min(340px, 25vw), 220px);
+    #sidebar-splitter.sidebar-splitter {
+        display: none !important;
+    }
     #sidebar-box {
         min-width: 0 !important;
         width: 0 !important;
-        &[hidden="true"] {
-            display: block;
+        &[hidden] {
+            display: none;
             margin: 0 !important;
             opacity: 0;
         }
         stack {
-            width: var(--my-sidebar-box-width) !important;
+            width: var(--lukoning-sidebar-box-width) !important;
         }
         browser#sidebar {
             background-color: color-mix(in srgb, -moz-sidebar 35%, transparent) !important;
@@ -263,19 +266,19 @@ menu, menuitem, menucaption {
         padding-right: 0 !important; /*左侧时与网页的边距*/
     }
     #browser:has(#sidebar-main[sidebar-positionend]) #sidebar-box {
-        transform: translateX(max(-340px, -35vw));
+        transform: translateX(calc(var(--lukoning-sidebar-box-width) * -1));
         margin-left: 0 !important; /*右侧时与网页的边距(居然与左侧的不统一…)*/
     }
     #tabbrowser-tabbox {
         transform: translateX(0);
         transition: transform .4s cubic-bezier(.34, .68, 0, 1);
     }
-    #browser:has(#sidebar-box:not([hidden=true])) {
+    #browser:has(#sidebar-box:not([hidden])) {
         #tabbrowser-tabbox {
-            transform: translateX(round(calc(var(--my-sidebar-box-width) + 6px), 1px));
+            transform: translateX(round(calc(var(--lukoning-sidebar-box-width) + 6px), 1px));
         }
         &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
-            transform: translateX(round(calc(-1 * var(--my-sidebar-box-width) - 6px), 1px));
+            transform: translateX(round(calc(-1 * var(--lukoning-sidebar-box-width) - 6px), 1px));
         }
     }
 }
@@ -334,15 +337,20 @@ menu, menuitem, menucaption {
 
 /*边栏展开 v2*/
 :root[sidebar-expand-on-hover] {
+    #sidebar-launcher-splitter.sidebar-splitter {
+        display: none !important;
+    }
+    --lukoning-sidebar-width: 51.2333px;
+    --sidebar-launcher-collapsed-width: var(--lukoning-sidebar-width) !important;
     #sidebar-main {
-        min-width: 51.2333px !important;
+        min-width: var(--lukoning-sidebar-width) !important;
         width: 0 !important;
         transition: min-width .4s cubic-bezier(.34, .68, 0, 1), background .1s;
         &[sidebar-ongoing-animations] * {
             scrollbar-width: none;
         }
     }
-    body:not(:has(vbox#sidebar-box:not([hidden="true"]))) /*侧边栏应用打开时禁止展开，适用挤压式展开*/
+    body:not(:has(vbox#sidebar-box:not([hidden]))) /*侧边栏应用打开时禁止展开，适用挤压式展开*/
     #sidebar-main[sidebar-launcher-expanded] {
         min-width: max(220px, min(320px, 20vw)) !important;
     }
@@ -368,17 +376,19 @@ menu, menuitem, menucaption {
             .tabbrowser-tab{
                 max-width: none !important;
             }
+            &[sidebar-launcher-expanded] {
+                transition: min-width .5s cubic-bezier(.34, .68, 0, 1), background .1s;
+            }
         }
         #tabbrowser-tabbox {
             transform: translateX(0);
-            transition: transform .4s cubic-bezier(.34, .68, 0, 1);
-        }
-        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden=true]))) {
-            #tabbrowser-tabbox {
+            transition: transform .5s cubic-bezier(.34, .68, 0, 1);
+            &:is(#browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden]))) *) {
                 transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
-            }
-            &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
-                transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
+                transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+                &:is(#browser:has(#sidebar-main[sidebar-positionend]) *) {
+                    transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
+                }
             }
         }
     }
@@ -413,7 +423,7 @@ menu, menuitem, menucaption {
             transition: transform .4s cubic-bezier(.34, .68, 0, 1);
             z-index: 10;
         }
-        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden=true]))) {
+        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden]))) {
             #tabbrowser-tabbox {
                 transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
             }
@@ -472,5 +482,4 @@ menu, menuitem, menucaption {
 
 menupopup {
     animation: 300ms cubic-bezier(0, 0.8, 0.2, 1) fgtDropdown;
-
 }*/

@@ -16,7 +16,7 @@ html, body {
     这个值默认就是 transparent ……*/
 }
 @-moz-document url-prefix(about:) {
-    html, body, window {
+    :root, html, body, window {
         background-color: transparent !important;
         & * {
             font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
@@ -39,6 +39,9 @@ html, body {
             --in-content-item-selected-text: var(--button-text-color-primary);
             --in-content-item-hover: color-mix(in srgb, var(--color-accent-primary) 20%, transparent);
             --in-content-item-hover-text: var(--button-text-color-primary);
+            --button-background-color-primary: var(--color-accent-primary);
+            --button-background-color-primary-hover: var(--color-accent-primary-hover);
+            --button-background-color-primary-active: var(--color-accent-primary-active);
             --color-white: #FFF;
             --color-gray-80: #1A1A1A;
             --link-color: var(--color-accent-primary);
