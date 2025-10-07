@@ -9,8 +9,8 @@
 <code>widget.non-native-theme.use-theme-accent</code><br>
 <code>widget.windows.mica</code><br>
 将以上首选项设为<code>true</code>（也就是启用状态）<br><br>
-<code>widget.windows.mica.popups</code>设为<code>2</code>（ 0 为 MicaAlt，1 为 Mica，2 为 Acrylic ）<br>
-<code>widget.windows.mica.toplevel-backdrop</code>设为<code>1</code><br>
+<code>widget.windows.mica.popups</code>设为<code>2</code><br>
+<code>widget.windows.mica.toplevel-backdrop</code>设为<code>1</code>（ 0 为 MicaAlt，1 为 Mica，2 为 Acrylic ）<br>
 </p>
 
 **不建议使用非默认“系统主题—自动”主题**
