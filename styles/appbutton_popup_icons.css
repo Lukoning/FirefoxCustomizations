@@ -1,25 +1,38 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. */
-/* If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.  */
+/*
+**  Original work: Custom CSS tweaks for Firefox v4.7.5 by Aris-t2
+**  Modified on Oct. 5, 2025 by Lukoning (https://github.com/Lukoning)
+**
+**  This Source Code Form is subject to the terms of
+**  the Mozilla Public License, v. 2.0.
+**  If a copy of the MPL was not distributed with this file,
+**  You can obtain one at https://mozilla.org/MPL/2.0/.
+*/
 
 /* Firefox userChrome.css tweaks ********************************************************/
 /* Github: https://github.com/aris-t2/customcssforfx ************************************/
 /****************************************************************************************/
 
-
 :root {
   --y_padding_before_label_am: 4px !important;
 }
 
-#appMenu-fxa-label2::before,
-#fxa-manage-account-button::before {
-  content:"" !important;
-  display: block !important;
-  width: 16px !important;
-  height: 16px !important;
-  -moz-context-properties: fill;
-  background-image: url("chrome://browser/skin/fxa/avatar.svg") !important; /* tab.svg */
-  margin-inline-end: 4px !important;
-  fill: currentColor;
+#appMenu-fxa-label2,
+#fxa-manage-account-button {
+  &::before {
+    content:"" !important;
+    display: block !important;
+    width: 16px !important;
+    height: 16px !important;
+    -moz-context-properties: fill;
+    background-image: var(--avatar-image-url) !important; /* tab.svg */ /* Lukoning: 原为固定的账户图标 fxa/avatar.svg，而非账户头像 */
+    margin-inline-end: 4px !important;
+    fill: currentColor;
+    background-repeat: round;
+    border-radius: 50%;
+  }
+  [fxastatus="signedin"] &::before { /*Lukoning: 让账户头像与其他图标在视觉上保持大小一致*/
+    scale: 1.3;
+  }
 }
 
 #PanelUI-fxa-menu-syncnow-button::before {
@@ -427,27 +440,35 @@
 
 /* Browser Toolbox (by Key) and Browser Content Toolbox  */
 
-#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
-#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon {
-  list-style-image: url("../../image/command-tilt.png");
+/* Lukoning: 这里的一些图标url指向的是源项目中的图标，由于图标路径改变，故进行修改。
+** 另外，“浏览器内容工具箱”至少在FF142已经消失，所以紧随其后的“浏览器控制台”就被错误替换图标了，这里加了一个判断来避免替换。
+*/
+
+:is(#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
+  #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon
+):not([key="key_browserConsole"] *) {
+  list-style-image: url("../images/command-tilt.png");
   filter: grayscale(100%) brightness(10%);
 }
 
-#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > label.toolbarbutton-text,
-#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > label.toolbarbutton-text {
+:is(#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > label.toolbarbutton-text,
+  #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > label.toolbarbutton-text
+):not([key="key_browserConsole"] *) {
   padding-inline-start: 8px !important;
 }
 
-:root[lwtheme]:-moz-lwtheme-brighttext #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
-:root[lwtheme]:-moz-lwtheme-brighttext #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon {
-  list-style-image: url("../../image/command-tilt.png");
+:is(:root[lwtheme]:-moz-lwtheme-brighttext #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
+  :root[lwtheme]:-moz-lwtheme-brighttext #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon
+):not([key="key_browserConsole"] *) {
+  list-style-image: url("../images/command-tilt.png");
   filter: grayscale(100%) brightness(220%) !important;
 }
 
 @media (-moz-content-prefers-color-scheme: dark) {
-	#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
-	#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon {
-	  list-style-image: url("../../image/command-tilt.png");
+	:is(#appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon,
+	  #appmenu-developer-tools-view toolbarbutton[key="key_toggleToolbox"] + toolbarbutton + toolbarbutton + toolbarbutton + toolbarbutton > image.toolbarbutton-icon
+  ):not([key="key_browserConsole"] *) {
+	  list-style-image: url("../images/command-tilt.png");
 	  filter: grayscale(100%) brightness(220%) !important;
 	}
 }

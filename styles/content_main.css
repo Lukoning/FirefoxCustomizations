@@ -1,0 +1,38 @@
+/* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
+
+@-moz-document url-prefix(about:) {
+    :root, html, body, window {
+        * {
+            font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
+            --button-border-radius: var(--border-radius-small) !important;
+            transition: background .1s, color .1s;
+        }
+    }
+    @-moz-document url-prefix(about:preferences) {
+        /*.sticky-container {
+            width: fit-content !important;
+            float: right;
+            & #searchInput {
+                margin: 20px 0 0 0 !important;
+            }
+            &+* {
+                padding-top: 20px !important;
+            }
+        }*/
+    }
+}
+
+@-moz-document regexp("^\\w+:\\/\\/[^?]*\\.[pP][dD][fF](?:\\?.*)?$|^[^:?]*\\.[pP][dD][fF](?:\\?.*)?$") {
+/*PDF阅读器*/ /*这里正则表达式的转义反斜杠需要二次转义*/
+    :root, html, body, window {
+        * {
+            transition: background .1s, color .1s;
+        }
+        .toolbarButton, .toolbarField, .dropdownToolbarButton {
+            border-radius: 4px !important;
+            > select {
+                border-radius: 4px !important;
+            }
+        }
+    }
+}
