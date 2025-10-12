@@ -22,8 +22,8 @@ html, body {
     ::selection {
         color: currentColor;
         background: light-dark(
-            color-mix(in oklch, var(--color-accent-primary) 30%, transparent),
-            color-mix(in oklch, var(--color-accent-primary) 40%, transparent)
+            color-mix(in oklch, AccentColor 30%, transparent),
+            color-mix(in oklch, AccentColor 40%, transparent)
         );
     }
 }
