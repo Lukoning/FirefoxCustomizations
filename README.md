@@ -18,7 +18,7 @@
 如想更换其他主题，请禁用 widget.windows.mica 。
 
 ### 使用方法
-1. 下载这些文件的压缩包：点击 About 左边的 Code 按钮（一般是绿色的），然后点击“Download ZIP”
+1. 下载压缩包：点击右侧栏的“Releases”，找到最新版，点击下面的“Assets”，然后下载“Source code (zip)”
 
 2. 打开火狐浏览器，在地址栏输入`about:config`，进去搜`stylesheets`，把`toolkit.legacyUserProfileCustomizations.stylesheets`设为`true`
 
