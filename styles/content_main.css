@@ -1,14 +1,26 @@
 /* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
 
-@-moz-document url-prefix(about:) {
-    :root, html, body, window {
-        * {
+@-moz-document url-prefix(about:), url-prefix(chrome:) {
+    :root, :host, html, body, window {
+        *:not(#IM#POR#TANT) {
             font-family: "Noto Sans SC", "Segoe UI", "Microsoft YaHei UI";
             --button-border-radius: var(--border-radius-small) !important;
+            --input-text-border-radius: var(--border-radius-small) !important;
             transition: background .1s, color .1s;
         }
     }
+    @-moz-document url-prefix(about:firefoxview) {
+        :root, :host, html, body, window {
+            ::part(moz-input-search):not(#WTH) {
+                /*不是，Mozilla你套那么多ShadowDOM干什么*/
+                /*--border-radius-medium: var(--border-radius-small) !important;*/
+            }
+        }
+    }
     @-moz-document url-prefix(about:preferences) {
+        /*#profilesGroup { 隐藏FF144+的新版(有别于旧版)配置文件管理功能入口
+            display: none;
+        }*/
         /*.sticky-container {
             width: fit-content !important;
             float: right;
@@ -19,6 +31,24 @@
                 padding-top: 20px !important;
             }
         }*/
+    }
+    @media not -moz-pref("lkn.css.do-not-block-new-profile-management-feature") {
+        @-moz-document url-prefix(about:profilemanager), url-prefix(about:editprofile), url-prefix(about:deleteprofile) {
+            html > body *:not(#FUCK#YOU#MOZILLA) {
+                display: none !important;
+                visibility: collapse !important;
+            }
+            html::after {
+                content: "此页面已被屏蔽\A如要管理配置文件，请在地址栏输入 about:profiles\A\A若您执意想要使用新版配置文件管理器，请进入 about:config ，新建布尔值 lkn.css.do-not-block-new-profile-management-feature 并设置为 true";
+                width: 100%;
+                position: absolute;
+                bottom: 50%;
+                font-size: 18px;
+                text-align: center;
+                user-select: text;
+                white-space: pre-line;
+            }
+        }
     }
 }
 

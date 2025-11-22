@@ -30,6 +30,7 @@ html, * {
     --button-background-color-ghost: transparent;
     --button-background-color-ghost-hover: var(--button-background-color);
     --button-background-color-ghost-active: var(--button-background-color-active);
+    --button-background-color-ghost-selected: var(--button-background-color-active);
     --in-content-primary-button-text-color: var(--button-text-color-primary);
     --in-content-primary-button-text-color-hover: var(--button-text-color-primary-hover);
     --in-content-primary-button-text-color-active: var(--button-text-color-primary-active);
@@ -51,8 +52,6 @@ html, * {
     --urlbar-box-bgcolor: light-dark(#2221, #FFF1);
     --urlbar-box-hover-bgcolor: var(--toolbarbutton-hover-background);
     --urlbar-box-active-bgcolor: var(--toolbarbutton-active-background);
-    --panel-border-color: #0002;
-    --arrowpanel-border-color: var(--panel-border-color);
     --link-color: var(--color-accent-primary);
     --link-color-hover: var(--color-accent-primary-hover);
     --link-color-active: var(--color-accent-primary-active);
@@ -79,11 +78,15 @@ button {
     }
     &[orient="vertical"] { /*垂直标签页*/
         .tabbrowser-tab[visuallyselected] .tab-background {
-            border-left: 2px solid var(--color-accent-primary);/*左侧垂直标签页左边框*/
+            #sidebar-main:not([sidebar-positionend]) & {
+                border-left: 2px solid var(--color-accent-primary);/*左侧垂直标签页左边框*/
+            }
+            #sidebar-main[sidebar-positionend] & {
+                border-right: 2px solid AccentColor;/*右侧垂直标签页右边框*/
+            }
         }
     }
 }
-
 #TabsToolbar #firefox-view-button { /*标签页栏FFView*/
     &:hover > :is(.toolbarbutton-icon, .toolbarbutton-text, .toolbarbutton-badge-stack) {
         background-color: var(--tab-hover-background-color) !important;

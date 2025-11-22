@@ -1,0 +1,595 @@
+/* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
+
+.menu-icon {
+	width: 16px;
+	height: 16px;
+	box-sizing: border-box;
+	display: revert !important;
+	visibility: visible !important;
+    margin-block: 0 !important;
+    margin-inline: 1px 8px !important;
+    #context-navigation .menuitem-iconic & {
+        margin-inline: 0 !important;
+    }
+
+    &:not([src], [srcset]) {
+        content: url("");
+    }
+    mask-size: cover;
+    [data-l10n-id="text-action-spell-no-suggestions"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-spell-add-to-dictionary"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-spell-undo-add-to-dictionary"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-open-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/link.svg"); 
+    }
+    [data-l10n-id="main-context-menu-open-link-in-container-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/mask-image/firefoxview/view-opentabs.svg"); 
+    }
+    [data-l10n-id="main-context-menu-open-link-new-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/open-in-new.svg"); 
+    }
+    [data-l10n-id="main-context-menu-open-link-container-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/mask-image/firefoxview/view-opentabs.svg"); 
+    }
+    [data-l10n-id="main-context-menu-open-link-new-window"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/window.svg"); 
+    }
+    [data-l10n-id="main-context-menu-open-link-new-private-window"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/privateBrowsing.svg"); 
+    }
+    [data-l10n-id="main-context-menu-preview-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-bookmark-link-2"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/bookmark-hollow.svg"); 
+    }
+    [data-l10n-id="main-context-menu-save-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-copy-email"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-copy-phone"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-copy-link-simple"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-copy-clean-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-link-send-to-device"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/fxa/send.svg") 
+    }
+    [data-l10n-id="main-context-menu-media-play"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/play-fill.svg");
+    }
+    [data-l10n-id="main-context-menu-media-pause"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/pause-fill.svg");
+    }
+    [data-l10n-id="main-context-menu-media-mute"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/audio-muted.svg");
+    }
+    [data-l10n-id="main-context-menu-media-unmute"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/audio.svg");
+    }
+    [data-l10n-id="main-context-menu-media-play-speed-2"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/trending.svg");
+    }
+    [data-l10n-id="main-context-menu-media-loop"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/notification-icons/autoplay-media.svg");
+    }
+    [data-l10n-id="main-context-menu-media-video-leave-fullscreen"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/fullscreenExitButton.svg");
+    }
+    [data-l10n-id="main-context-menu-media-video-fullscreen"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/fullscreenEnterButton.svg");
+    }
+    [data-l10n-id="main-context-menu-media-hide-controls"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/eye-slash.svg");
+    }
+    [data-l10n-id="main-context-menu-media-show-controls"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/eye.svg");
+    }
+    [data-l10n-id="main-context-menu-video-view-new-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/open-in-new.svg");
+    }
+    [data-l10n-id="main-context-menu-media-watch-pip"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/media/picture-in-picture-open.svg");
+    }
+    [data-l10n-id="main-context-menu-image-reload"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage)
+    }
+    [data-l10n-id="main-context-menu-image-view-new-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/open-in-new.svg");
+    }
+    [data-l10n-id="main-context-menu-image-save-as"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-video-take-snapshot"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/screenshot.svg");
+    }
+    [data-l10n-id="main-context-menu-video-save-as"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-audio-save-as"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-copy"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-copy-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/link.svg"); 
+    }
+    [data-l10n-id="main-context-menu-video-copy-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/link.svg"); 
+    }
+    [data-l10n-id="main-context-menu-audio-copy-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/link.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-email"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/mail.svg"); 
+    }
+    [data-l10n-id="main-context-menu-video-email"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/mail.svg"); 
+    }
+    [data-l10n-id="main-context-menu-audio-email"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/mail.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-copy-text"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image:  url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-info"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/info.svg"); 
+    }
+    [data-l10n-id="main-context-menu-image-desc"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-image-set-image-as-background"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/canvas.svg"); 
+    }
+    [data-l10n-id="main-context-menu-page-save"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-send-to-device"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/fxa/send.svg") 
+    }
+    [data-l10n-id="main-context-menu-suggest-strong-password"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/login.svg"); 
+    }
+    [data-l10n-id="main-context-menu-use-relay-mask"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-manage-passwords"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/login.svg"); 
+    }
+    [data-l10n-id="text-action-paste-no-formatting"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-comment-selection-1"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-highlight-selection"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-reveal-password"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/login.svg"); 
+    }
+    [data-l10n-id="main-context-menu-print-selection-2"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/print.svg"); 
+    }
+    [data-l10n-id="text-action-copy-clean-link"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="text-action-copy-link-to-highlight"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="text-action-copy-clean-link-to-highlight"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="text-action-remove-highlight"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-undo"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/undo.svg"); 
+    }
+    [data-l10n-id="text-action-redo"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/redo.svg"); 
+    }
+    [data-l10n-id="text-action-cut"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/edit-cut.svg"); 
+    }
+    [data-l10n-id="text-action-copy"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/edit-copy.svg"); 
+    }
+    [data-l10n-id="text-action-paste"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/edit-paste.svg"); 
+    }
+    #paste-and-go > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/forward.svg"); 
+    }
+    [data-l10n-id="text-action-delete"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/delete.svg"); 
+    }
+    [data-l10n-id="text-action-select-all"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/autoscroll.svg"); 
+    }
+    [data-l10n-id="main-context-menu-take-screenshot"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/screenshot.svg"); 
+    }
+    [data-l10n-id="main-context-menu-keyword"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-add-engine"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    #context-searchselect > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/search-glass.svg");
+    }
+    [data-l10n-id="main-context-menu-translate-selection"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/translations.svg"); 
+    }
+    [data-l10n-id="main-context-menu-translate-selection-to-language"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/translations.svg"); 
+    }
+    [data-l10n-id="main-context-menu-translate-link-text-to-language"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/translations.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-frame-show-this"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-frame-open-tab"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/open-in-new.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-open-window"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/window.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-reload"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-frame-add-bookmark"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/bookmark-hollow.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-save-as"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://browser/skin/save.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-print"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/print.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-view-source"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://devtools/skin/images/tool-dom.svg"); 
+    }
+    [data-l10n-id="main-context-menu-frame-view-info"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/info.svg"); 
+    }
+    [data-l10n-id="text-action-spell-check-toggle"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-spell-add-dictionaries"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-spell-dictionaries"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="text-action-spell-add-dictionaries"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-bidi-switch-text"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-bidi-switch-page"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+    [data-l10n-id="main-context-menu-view-selection-source"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://devtools/skin/images/tool-dom.svg"); 
+    }
+    [data-l10n-id="main-context-menu-view-page-source"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://devtools/skin/images/tool-dom.svg"); 
+    }
+    [data-l10n-id="main-context-menu-inspect-a11y-properties"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://global/skin/icons/developer.svg");
+    }
+    [data-l10n-id="main-context-menu-inspect"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url("chrome://devtools/skin/images/tool-debugger.svg");
+    }
+    [data-l10n-id="main-context-menu-eme-learn-more"] > & {
+        background-color: currentColor;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+        mask-image: url(NoImage) 
+    }
+}

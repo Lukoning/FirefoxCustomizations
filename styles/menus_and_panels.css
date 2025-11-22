@@ -1,0 +1,96 @@
+/* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
+
+/*菜单(两种类型：menupopup与panel)*/
+:root:root:root *:not(#BMB_bookmarksPopup *) {
+    &{
+        --menuitem-border-radius: 4px;
+        --menuitem-margin: 0px;
+        --menuitem-padding: .5em .6em;
+        --arrowpanel-border-radius: 8px;
+        --panel-subview-body-padding-block: 5px;
+        --panel-subview-body-padding-inline: 0;
+        --arrowpanel-header-min-height: /*又来修bug*/
+            calc(var(--arrowpanel-header-back-icon-full-width) + (var(--panel-separator-padding-vertical) * 2));
+        --arrowpanel-menuitem-margin-inline: 5px;
+        --arrowpanel-menuitem-padding-block: 6px;
+        --arrowpanel-menuitem-padding-inline: 8px;
+        --panel-subview-body-padding: var(--panel-subview-body-padding-block) var(--panel-subview-body-padding-inline);
+        --arrowpanel-menuitem-margin: var(--arrowpanel-menuitem-margin-block) var(--arrowpanel-menuitem-margin-inline);
+        --arrowpanel-menuitem-padding: var(--arrowpanel-menuitem-padding-block) var(--arrowpanel-menuitem-padding-inline);
+    }&{
+        --arrowpanel-border-color: light-dark(#0003, #0004);
+        --panel-border-color: var(--arrowpanel-border-color);
+        --arrowpanel-shadow-margin: 0px;
+        --panel-separator-color: color-mix(in oklch, currentColor 15%, transparent);
+    }
+}
+@media -moz-pref("widget.windows.mica.popups") {
+    :root:root:root *, menupopup, panel {
+        &:not(.autoscroller) {
+            --panel-background: color-mix(in oklch, var(--arrowpanel-background) 60%, transparent) !important;
+        }
+        &:is(menupopup, panel) {
+            --arrowpanel-border-color: none;
+        }
+    }
+    menupopup, panel:not(.autoscroller) {
+        appearance: menupopup !important;
+    }
+}
+@media not -moz-pref("widget.windows.mica.popups") {
+    :root:root:root *, menupopup, panel {
+        --arrowpanel-shadow-margin: 16px;
+        --panel-shadow-margin: var(--arrowpanel-shadow-margin);
+        --panel-shadow: 0 3px var(--panel-shadow-margin) -3px light-dark(#0003, #0006) !important;
+    }
+}
+
+.panel-header {
+    h1 {
+        font-size: 1.2em !important;
+        padding-inline-start: 8px;
+        text-align: left;
+    }
+    toolbarbutton + h1 {
+        padding-inline-start: 4px;
+    }
+}
+menugroup {
+    justify-content: flex-start;
+}
+
+/*菜单(urlbarView 地址栏建议菜单 作Panel处理)*/
+@keyframes lkn_urlbarExpand {
+    0% {
+        transform: translateY(-10px) scale(0.97);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+@keyframes lkn_urlbarBackgroundIn {
+    0% {
+        transform: translateY(-5px) scale(0.97);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+.urlbar[open] {
+    .urlbar-background {
+        margin: 2px;
+        box-shadow: var(--panel-shadow);
+        animation: lkn_urlbarBackgroundIn .2s var(--lkn-timing-function-in0) !important;
+    }
+    .urlbarView {
+        margin-block-start: -2px !important;
+        animation: lkn_urlbarExpand .2s var(--lkn-timing-function-in0);
+    }
+    .urlbarView-results {
+        padding-block-start: 2px !important;
+    }
+}

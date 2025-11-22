@@ -6,6 +6,7 @@
     transition: background .1s, color .1s;
     --toolbar-start-end-padding: 4px !important;
     --toolbarbutton-outer-padding: 1px !important;
+    --input-text-border-radius: var(--border-radius-small) !important;
 }
 
 /*html:not(:has(#tabbrowser-tabbox)) {
@@ -13,6 +14,28 @@
     background-image: image-set(url("chrome://branding/content/about-logo.png"), url("chrome://branding/content/about-logo@2x.png") 2x) no-repeat center !important;
 }*/
 
+/*  没有特别设置时隐藏新版配置文件管理器UI入口
+**  (有别于旧版 about:profiles 配置文件功能)
+*/
+@media not -moz-pref("lkn.css.do-not-block-new-profile-management-feature") { 
+    #profiles-menu,
+    #appMenu-empty-profiles-button,
+    #appMenu-profiles-button,
+    #PanelUI-fxa-menu-empty-profiles-button,
+    #PanelUI-fxa-menu-profiles-button {
+        display: none;
+    }
+    /*  备用方案：点击配置文件入口时跳转到旧版配置文件管理页面
+    **  似乎备用方案并不能使用纯CSS实现
+    #profiles-menu,
+    #appMenu-empty-profiles-button,
+    #PanelUI-fxa-menu-empty-profiles-button {
+        
+        &:not(#profiles-menu)::after {
+            display: none;
+        }
+    }*/
+}
 
 :root[taskbartab] {/*PWA*/
     #taskbar-tabs-favicon { /*(至少FF143)标题栏应用图标重新对齐*/
@@ -58,11 +81,13 @@ toolbar { /*缩小工具栏按钮之间的距离*/
 }
 
 .titlebar-buttonbox { /*三大金刚*/
+    align-items: center;
     min-height: 25px;
-    padding: 5px 4px 4px 0 !important;
+    padding: 4px 4px 4px 0 !important;
     toolbarbutton {
-        padding: 0 11px !important;
+        padding: 0 min(calc(var(--toolbarbutton-inner-padding) + 3px), 11px) !important;
         border-radius: var(--border-radius-small);
+        height: min(calc(var(--toolbarbutton-inner-padding)*2 + 16px), 32px);
         &::before {
             transform: translateY(1px);
         }
@@ -86,12 +111,24 @@ toolbar { /*缩小工具栏按钮之间的距离*/
     }
 }
 
-#urlbar-container * {
-    transition: all .2s, background .1s, color .1s;
+/*地址栏Container*/
+* {
+    --urlbar-min-height: calc(var(--toolbarbutton-inner-padding)*2 + 16px) !important;
+    --urlbar-icon-padding: calc(var(--toolbarbutton-inner-padding) - 2px) !important;
+}
+.urlbar-container {
+    padding-block: 0 !important;
+    &[breakout] {
+        min-height: 0 !important;
+    }
+    * {
+        transition: background .1s, color .1s;
+    }
 }
 #urlbar-searchmode-switcher {
     height: 28px !important;
 }
+
 
 .tab-background { /*标签页背景*/
     border-radius: var(--border-radius-small) !important;
@@ -104,6 +141,10 @@ toolbar { /*缩小工具栏按钮之间的距离*/
     margin-inline-start: 0 !important;
 }
 #tabbrowser-tabs {/*标签页*/
+    .tab-close-button {
+        --tab-border-radius: calc(var(--border-radius-small) + 3px) !important;
+        border-radius: var(--border-radius-small);
+    }
     &[orient="vertical"] { /*垂直标签页*/
         .tab-background {
             /*margin-block: 0 !important; /*缩小边距1*/
@@ -111,6 +152,9 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         }
         .tabbrowser-tab {
             padding-block: 0 !important; /*缩小边距2*/
+            &{ /*自适应宽高(不想做了)*/
+
+            }
         }
         &{ /*新标签页按钮*/
             #tabs-newtab-button { /*溢出前新标签页按钮
@@ -130,14 +174,6 @@ toolbar { /*缩小工具栏按钮之间的距离*/
             &::part(scrollbutton-up), &::part(scrollbutton-down) { /*显示溢出箭头(无用)*/
                 display: flex !important;
             }
-        }
-    }
-}
-#sidebar-main[sidebar-positionend] {
-    #tabbrowser-tabs {
-        .tabbrowser-tab[visuallyselected] .tab-background {
-            border-left: none;
-            border-right: 2px solid AccentColor;/*右侧垂直标签页右边框*/
         }
     }
 }
@@ -181,7 +217,9 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         height: 0 !important;
         transition: opacity var(--inactive-window-transition), min-height .1s !important;
         &:not([autohide][inactive]) {
-            min-height: 41px !important;
+            margin: 0 0 -4px;
+            /*自适应高度*/
+            min-height: calc(var(--toolbarbutton-inner-padding)*2 + 26px) !important;
         };
         > :is(toolbarbutton, toolbaritem):first-child {
             padding-inline-start: var(--toolbar-start-end-padding) !important;
@@ -192,7 +230,7 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         menubar {
             height: 100%;
             margin: 5px 0 0 0;
-            max-height: 30px;
+            max-height: 32px;
             menu {
                 margin: 0 2px
             }
@@ -216,15 +254,19 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         }
     }
 }
-#nav-bar-customization-target {/*垂直标签页+最大化时整个顶栏的顶部都能拖，与 MS Edge 的行为一致*/
+html:has(#vertical-tabs)[sizemode="maximized"]:has(#toolbar-menubar[autohide][inactive]) #nav-bar {
+/*垂直标签页+最大化时整个顶栏的顶部都能拖，与 MS Edge 的行为一致*/
     border-top: 1px solid transparent !important;
 }
-#nav-bar {/*隐藏掉奇怪的线*/
+#nav-bar {
+    /*隐藏掉奇怪的线*/
     border-top: none !important;
+    /*自适应高度*/
+    height: calc(var(--toolbarbutton-inner-padding)*2 + 26px);
 }
 
 /*标签页切换动画*/
-@keyframes documentIn {
+@keyframes lkn_documentIn {
     0% {
         transform: translateY(100px);
         opacity: 0;
@@ -234,7 +276,7 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         transform: translateY(0px);
     }
 }
-@keyframes documentOut {
+@keyframes lkn_documentOut {
     100% {
         transform: translateY(100px);
         opacity: 0;
@@ -246,24 +288,24 @@ toolbar { /*缩小工具栏按钮之间的距离*/
 }
 #tabbrowser-tabbox hbox.browserSidebarContainer, #customization-container {
     background-color: color-mix(in oklch, var(--tabpanel-background-color) 35%, transparent) !important;
-    /*animation: documentOut .3s cubic-bezier(.34, .68, 0, 1);*/
+    /*animation: lkn_documentOut .3s var(--lkn-timing-function-in0);*/
     &.deck-selected {
-        animation: documentIn .3s cubic-bezier(.34, .68, 0, 1);
+        animation: lkn_documentIn .3s var(--lkn-timing-function-in0);
     }
 }
 
 html#main-window #navigator-toolbox {
 	border-bottom: none !important;
-    transition: margin-top .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+    transition: margin-top .4s var(--lkn-timing-function-in0), background .1s;
 }
 #PersonalToolbar {
     padding-inline: 2px;
     opacity: 1 !important;
-    transition: max-height .5s cubic-bezier(.34, .68, 0, 1), opacity .4s, background .1s; /*出现*/
+    transition: max-height .5s var(--lkn-timing-function-in0), opacity .4s, background .1s; /*出现*/
     &[collapsed="true"] { /*隐藏时*/
         visibility: visible !important;
         opacity: 0.001 !important;
-        transition: max-height .3s cubic-bezier(.34, .68, 0, 1), opacity .2s, background .1s; /*消失*/
+        transition: max-height .3s var(--lkn-timing-function-in0), opacity .2s, background .1s; /*消失*/
     }
 }
 
@@ -274,7 +316,7 @@ menu, menuitem, menucaption {
 /*vbox#sidebar-box { 侧边栏应用
     min-width: min(340px, 35%) !important;
     width: 0 !important;
-    transition: min-width .3s cubic-bezier(.34, .68, 0, 1), background .1s;
+    transition: min-width .3s var(--lkn-timing-function-in0), background .1s;
     &[hidden] {
         display: block;
         min-width: 0 !important;
@@ -315,7 +357,7 @@ menu, menuitem, menucaption {
     }
     #tabbrowser-tabbox {
         transform: translateX(0);
-        transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+        transition: transform .4s var(--lkn-timing-function-in0);
     }
     #browser:has(#sidebar-box:not([hidden])) {
         #tabbrowser-tabbox {
@@ -378,7 +420,7 @@ menu, menuitem, menucaption {
     #sidebar-main {
         min-width: var(--lukoning-sidebar-width) !important;
         width: 0 !important;
-        transition: min-width .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+        transition: min-width .4s var(--lkn-timing-function-in0), background .1s;
         &[sidebar-ongoing-animations] * {
             scrollbar-width: none;
         }
@@ -410,15 +452,15 @@ menu, menuitem, menucaption {
                 max-width: none !important;
             }
             &[sidebar-launcher-expanded] {
-                transition: min-width .5s cubic-bezier(.34, .68, 0, 1), background .1s;
+                transition: min-width .5s var(--lkn-timing-function-in0), background .1s;
             }
         }
         #tabbrowser-tabbox {
             transform: translateX(0);
-            transition: transform .5s cubic-bezier(.34, .68, 0, 1);
+            transition: transform .5s var(--lkn-timing-function-in0);
             &:is(#browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden]))) *) {
                 transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
-                transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+                transition: transform .4s var(--lkn-timing-function-in0);
                 &:is(#browser:has(#sidebar-main[sidebar-positionend]) *) {
                     transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
                 }
@@ -439,7 +481,7 @@ menu, menuitem, menucaption {
                 &[visuallyselected] {
                     min-width: 51.2333px !important;
                     width: 0 !important;
-                    transition: min-width .4s cubic-bezier(.34, .68, 0, 1), background .1s;
+                    transition: min-width .4s var(--lkn-timing-function-in0), background .1s;
                 }
             }
             &[sidebar-launcher-expanded], &[sidebar-ongoing-animations] {
@@ -453,7 +495,7 @@ menu, menuitem, menucaption {
         }
         #tabbrowser-tabbox {
             transform: translateX(0);
-            transition: transform .4s cubic-bezier(.34, .68, 0, 1);
+            transition: transform .4s var(--lkn-timing-function-in0);
             z-index: 10;
         }
         #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden]))) {
