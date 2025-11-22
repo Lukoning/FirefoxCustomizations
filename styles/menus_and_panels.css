@@ -7,6 +7,7 @@
         --menuitem-margin: 0px;
         --menuitem-padding: .5em .6em;
         --arrowpanel-border-radius: 8px;
+        --panel-border-radius: var(--arrowpanel-border-radius) !important;
         --panel-subview-body-padding-block: 5px;
         --panel-subview-body-padding-inline: 0;
         --arrowpanel-header-min-height: /*又来修bug*/
@@ -19,28 +20,33 @@
         --arrowpanel-menuitem-padding: var(--arrowpanel-menuitem-padding-block) var(--arrowpanel-menuitem-padding-inline);
     }&{
         --arrowpanel-border-color: light-dark(#0003, #0004);
-        --panel-border-color: var(--arrowpanel-border-color);
+        --panel-border-color: var(--arrowpanel-border-color) !important;
         --arrowpanel-shadow-margin: 0px;
         --panel-separator-color: color-mix(in oklch, currentColor 15%, transparent);
     }
 }
 @media -moz-pref("widget.windows.mica.popups") {
-    :root:root:root *, menupopup, panel {
+    :root:root:root *:not(#HELLO-IM-A-ID-ABCABC) {
         &:not(.autoscroller) {
             --panel-background: color-mix(in oklch, var(--arrowpanel-background) 60%, transparent) !important;
         }
-        &:is(menupopup, panel) {
+        &:is(menupopup) {
+            --arrowpanel-border-color: #0000;
+            --panel-border-color: var(--arrowpanel-border-color) !important;
+        }
+        &:is(panel) {
             --arrowpanel-border-color: none;
+            --panel-border-color: var(--arrowpanel-border-color) !important;
         }
     }
     menupopup, panel:not(.autoscroller) {
         appearance: menupopup !important;
     }
 }
-@media not -moz-pref("widget.windows.mica.popups") {
+@media -moz-pref("widget.windows.mica.popups", 0) {
     :root:root:root *, menupopup, panel {
-        --arrowpanel-shadow-margin: 16px;
-        --panel-shadow-margin: var(--arrowpanel-shadow-margin);
+        --arrowpanel-shadow-margin: 16px !important;
+        --panel-shadow-margin: var(--arrowpanel-shadow-margin) !important;
         --panel-shadow: 0 3px var(--panel-shadow-margin) -3px light-dark(#0003, #0006) !important;
     }
 }
