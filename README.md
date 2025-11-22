@@ -1,6 +1,10 @@
 # FirefoxCustomizations
 本人定制火狐使用的CSS等，适用于Windows系统
 
+<img width="1102" height="766" alt="效果预览" src="https://github.com/user-attachments/assets/fc8b86bf-d950-46d7-ad04-7c3b6d040308" />
+
+由于个人喜好，安装后会自动禁止使用新版配置文件管理器（about:profilemanager），如不喜欢可以在安装后关闭该项功能。
+
 ### 使用前建议
 打开火狐浏览器，在地址栏输入`about:config`，搜索并设置以下首选项：
 <p>
@@ -15,9 +19,9 @@
 
 **不建议使用非默认“系统主题—自动”主题**
 
-如想更换其他主题，请禁用 widget.windows.mica 。
+如想更换其他主题，建议禁用 widget.windows.mica 。
 
-### 使用方法
+### 安装方法
 1. 下载压缩包：点击右侧栏的“Releases”，找到最新版，点击下面的“Assets”，然后下载“Source code (zip)”
 
 2. 打开火狐浏览器，在地址栏输入`about:config`，进去搜`stylesheets`，把`toolkit.legacyUserProfileCustomizations.stylesheets`设为`true`
@@ -33,6 +37,13 @@
 4. 将之前的压缩包解压到chrome文件夹（应该不用教吧，毕竟是计算机常识），确保userChrome.css这一层的文件和文件夹直接位于chrome文件夹下，不要嵌套其他文件夹
 
 5. 彻底重启火狐浏览器
+
+### 配置
+
+使用 about:config 进行配置
+目前提供以下首选项：
+boolean: <code>lkn.css.do-not-block-new-profile-management-feature</code>
+<p>- 不禁用新版配置文件管理器（默认禁用）
 
 ### 声明
 <p>文件 <code>./styles/appbutton_popup_icons.css</code> 的代码来自 <a href="https://github.com/aris-t2/customcssforfx">CustomCSSforFx</a> 项目，该项目具有  <a href="https://www.gnu.org/licenses/gpl-3.0.md">GPLv3</a> /  <a href="https://mozilla.org/MPL/2.0/"> MPLv2</a> 双重许可，这里选择 MPLv2 对该文件进行单文件许可。根据 MPLv2 的要求，在该文件的头部添加了许可声明。</p>
