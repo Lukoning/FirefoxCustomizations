@@ -60,6 +60,9 @@
     toolbarbutton + h1 {
         padding-inline-start: 4px;
     }
+    &.panel-header-with-info-button > h1:not(toolbarbutton + *) {
+        margin-inline-start: 0 !important;
+    }
 }
 menugroup {
     justify-content: flex-start;

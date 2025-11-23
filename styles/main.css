@@ -129,7 +129,6 @@ toolbar { /*缩小工具栏按钮之间的距离*/
     height: 28px !important;
 }
 
-
 .tab-background { /*标签页背景*/
     border-radius: var(--border-radius-small) !important;
 }
@@ -152,9 +151,6 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         }
         .tabbrowser-tab {
             padding-block: 0 !important; /*缩小边距2*/
-            &{ /*自适应宽高(不想做了)*/
-
-            }
         }
         &{ /*新标签页按钮*/
             #tabs-newtab-button { /*溢出前新标签页按钮
