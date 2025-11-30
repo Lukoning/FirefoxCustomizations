@@ -1,7 +1,7 @@
 # FirefoxCustomizations
 本人定制火狐使用的CSS等，适用于Windows系统
 
-<img width="1102" height="766" alt="效果预览" src="https://github.com/user-attachments/assets/fc8b86bf-d950-46d7-ad04-7c3b6d040308" />
+<img width="1149" height="757" alt="效果预览" src="https://github.com/user-attachments/assets/a4925dd8-1b1d-4c38-8e99-7d3faaeae4ff" />
 
 由于个人喜好，安装后会自动禁止使用新版配置文件管理器（about:profilemanager），如不喜欢可以在安装后关闭该项功能。
 
