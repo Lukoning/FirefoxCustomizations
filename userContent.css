@@ -1,2 +1,4 @@
-@import "./styles/content_main.css";
-@import "./styles/content_colors.css";
+/* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
+/* 可以在下方注释掉不需要使用或不喜欢的模块 */
+@import "./styles/content_main.css"; /* 火狐内置页面布局修改 */
+@import "./styles/content_colors.css"; /* 网页及火狐内置页面 颜色修改（背景透明等） */

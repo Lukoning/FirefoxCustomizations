@@ -1,9 +1,12 @@
-@import "./styles/main.css";
-@import "./styles/colors.css";
-@import "./styles/menus_and_panels.css";
-@import "./styles/menupopup_icons.css";
-@import "./styles/appbutton_popup_icons.css";
+/* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
+/* 可以在下方注释掉不需要使用或不喜欢的模块 */
+@import "./styles/main.css"; /*主要界面布局修改*/
+@import "./styles/colors.css"; /*主要颜色修改*/
+@import "./styles/menus_and_panels.css"; /*菜单修改*/
+@import "./styles/menupopup_icons.css"; /*上下文菜单（右键菜单和菜单栏菜单）添加图标*/
+@import "./styles/appbutton_popup_icons.css"; /*菜单面板（其他工具栏菜单）添加图标*/
 
+/*勿动*/
 * {
     --lkn-timing-function-in0: cubic-bezier(.34, .68, 0, 1);
 }

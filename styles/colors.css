@@ -56,6 +56,11 @@ html, * {
     --link-color-hover: var(--color-accent-primary-hover);
     --link-color-active: var(--color-accent-primary-active);
     --link-color-visited: oklch(from var(--color-accent-primary) l c calc(h + 80));
+    --lkn-tab-bgcolor: color-mix(in oklch,
+        var(--tab-hover-background-color) 40%,
+        color-mix(in oklch, var(--tab-selected-bgcolor) 20%, transparent)
+    );
+    --tab-loading-fill: var(--color-accent-primary);
     ::selection {
         color: var(--button-text-color) !important;
         background: light-dark(
@@ -70,31 +75,68 @@ button {
 }
 
 #tabbrowser-tabs {/*标签页*/
-    .tabbrowser-tab[visuallyselected] .tab-background { /*背景*/
-        background: color-mix(in oklch, var(--tab-selected-bgcolor) 70%, transparent) !important;
-    }
-    &:not([orient="vertical"]) .tabbrowser-tab[visuallyselected] .tab-background {
-        border-top: 2px solid var(--color-accent-primary);/*横向标签页上边框*/
-    }
-    &[orient="vertical"] { /*垂直标签页*/
-        .tabbrowser-tab[visuallyselected] .tab-background {
-            #sidebar-main:not([sidebar-positionend]) & {
-                border-left: 2px solid var(--color-accent-primary);/*左侧垂直标签页左边框*/
+    .tab-background { /*背景*/
+        .tabbrowser-tab:not(:hover) & {
+            background: var(--lkn-tab-bgcolor) !important;
+        }
+        .tabbrowser-tab[visuallyselected] & { /*选中时背景*/
+            background: color-mix(in oklch, var(--tab-selected-bgcolor) 70%, transparent) !important;
+            #tabbrowser-tabs:not([orient="vertical"]) & { /*横向*/
+                border-block-start: 2px solid var(--color-accent-primary);/*横向标签页上边框*/
+                transform: translateY(-1px);/*抵消边框导致的在视觉上背景变窄*/
             }
-            #sidebar-main[sidebar-positionend] & {
-                border-right: 2px solid AccentColor;/*右侧垂直标签页右边框*/
+            #tabbrowser-tabs[orient="vertical"] & { /*垂直*/
+                --tab-collapsed-background-width: auto !important;
+                #sidebar-main:not([sidebar-positionend]) & {
+                    border-inline-start: 2px solid var(--color-accent-primary);/*左侧垂直标签页左边框*/
+                    transform: translateX(-1px);/*抵消边框*/
+                }
+                #sidebar-main[sidebar-positionend] & {
+                    border-inline-end: 2px solid AccentColor;/*右侧垂直标签页右边框*/
+                    transform: translateX(1px);/*抵消边框*/
+                }
             }
         }
     }
 }
 #TabsToolbar #firefox-view-button { /*标签页栏FFView*/
-    &:hover > :is(.toolbarbutton-icon, .toolbarbutton-text, .toolbarbutton-badge-stack) {
-        background-color: var(--tab-hover-background-color) !important;
+    position: relative;
+    .toolbarbutton-icon {
+        background: transparent !important;
+        box-shadow: none !important;
+        outline-color: none !important;
     }
-    &[open] > .toolbarbutton-icon {
+    &::after {
+        content: "";
+        position: absolute;
+        width: 36px; /*10px(padding)+16px(icon)+10px(padding)*/
+        min-height: var(--tab-min-height);
+        z-index: -1;
+        border-radius: var(--tab-border-radius);
+        background: var(--lkn-tab-bgcolor);
+        transition: background .1s;
+    }
+    &:hover::after {
+        background: var(--tab-hover-background-color) !important;
+    }
+    &[open]::after {
         background: color-mix(in oklch, var(--tab-selected-bgcolor) 70%, transparent) !important;
-        border-top: 2px solid var(--color-accent-primary);/*打开时上边框*/
-        padding-top: calc(var(--toolbarbutton-inner-padding) - 2px) !important;/*抵消上边框，防止图标变形*/
+        box-shadow: var(--tab-selected-shadow);
+        outline-color: var(--tab-selected-outline-color);
+        border-block-start: 2px solid var(--color-accent-primary);/*打开时上边框*/
+        min-height: calc(var(--tab-min-height) - 2px);/*抵消上边框*/
+        transform: translateY(-1px); /*抵消视觉变窄效果*/
+    }
+}
+:is(
+    #tabs-newtab-button:not(#tabbrowser-tabs[orient="vertical"] *),
+    #TabsToolbar #new-tab-button
+) .toolbarbutton-icon,
+#vertical-tabs-newtab-button,
+#tabbrowser-tabs[orient="vertical"] #tabs-newtab-button { /*新标签页按钮*/
+    background-color: var(--lkn-tab-bgcolor);
+    &:hover:active { /*不想说话*/
+        background-color: var(--toolbarbutton-active-background);
     }
 }
 

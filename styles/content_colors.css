@@ -35,7 +35,7 @@ input {
     );
 }
 
-@-moz-document url-prefix(about:), url-prefix(chrome:) {
+@-moz-document url-prefix(about:), url-prefix(chrome:), url-prefix(jar:) {
     :root, html, body, window {
         background-color: transparent !important;
         &, * {
@@ -78,7 +78,7 @@ input {
             --in-content-primary-button-background: var(--color-accent-primary);
             --in-content-primary-button-background-hover: var(--color-accent-primary-hover);
             --in-content-primary-button-background-active: var(--color-accent-primary-active);
-            --in-content-item-hover: color-mix(in oklch, var(--color-accent-primary) 15%, transparent);
+            --in-content-item-hover: var(--button-background-color);
             --in-content-item-hover-text: var(--button-text-color);
             --in-content-item-selected: light-dark(
                 color-mix(in oklch, var(--color-accent-primary) 30%, transparent),

@@ -7,6 +7,7 @@
     --toolbar-start-end-padding: 4px !important;
     --toolbarbutton-outer-padding: 1px !important;
     --input-text-border-radius: var(--border-radius-small) !important;
+    --lkn-toolbarbutton-height: calc(var(--toolbarbutton-inner-padding)*2 + 16px);
 }
 
 /*html:not(:has(#tabbrowser-tabbox)) {
@@ -83,21 +84,47 @@ toolbar { /*缩小工具栏按钮之间的距离*/
 .titlebar-buttonbox { /*三大金刚*/
     align-items: center;
     min-height: 25px;
-    padding: 4px 4px 4px 0 !important;
+    --lkn-titlebar-buttonbox-padding-inline: min(calc(var(--toolbarbutton-inner-padding) + 3px), 11px);
     toolbarbutton {
-        padding: 0 min(calc(var(--toolbarbutton-inner-padding) + 3px), 11px) !important;
-        border-radius: var(--border-radius-small);
-        height: min(calc(var(--toolbarbutton-inner-padding)*2 + 16px), 32px);
+        position: relative;
+        height: 100%;
+        padding-inline: var(--lkn-titlebar-buttonbox-padding-inline) !important;
         &::before {
             transform: translateY(1px);
         }
-        /*&::after {
+        &::after {
             content: "";
             position: absolute;
-            inset: 0;
+            right: 0;
+            left: 0;
+            height: min(var(--lkn-toolbarbutton-height), 32px);
             z-index: -1;
-            width: 34px;
-        }*/
+            border-radius: var(--border-radius-small);
+            transition: background .1s;
+        }
+        @media not (prefers-contrast) {
+            background-color: transparent !important;
+            &:last-child {
+                padding-inline-end: calc(var(--lkn-titlebar-buttonbox-padding-inline) + 4px) !important;
+                &::after {
+                    right: 4px;
+                }
+            }
+            &:hover::after {
+                background-color: var(--toolbarbutton-hover-background);
+            }
+            &:hover:active::after {
+                background-color: var(--toolbarbutton-active-background);
+            }
+            &.titlebar-close {
+                &:hover::after {
+                    background-color: hsl(355, 86%, 49%);
+                }
+                &:hover:active::after {
+                    background-color: hsl(355, 82%, 69%);
+                }
+            }
+        }
     }
 }
 :root[fxastatus="signedin"] #fxa-toolbar-menu-button .avatar-container { /*工具栏账户按钮*/
@@ -113,7 +140,9 @@ toolbar { /*缩小工具栏按钮之间的距离*/
 
 /*地址栏Container*/
 * {
-    --urlbar-min-height: calc(var(--toolbarbutton-inner-padding)*2 + 16px) !important;
+    --urlbar-min-height: var(--lkn-toolbarbutton-height) !important;
+    --urlbar-height: var(--lkn-toolbarbutton-height) !important;
+    --urlbar-container-height: calc(var(--lkn-toolbarbutton-height) + 10px) !important;
     --urlbar-icon-padding: calc(var(--toolbarbutton-inner-padding) - 2px) !important;
 }
 .urlbar-container {
@@ -124,64 +153,6 @@ toolbar { /*缩小工具栏按钮之间的距离*/
     * {
         transition: background .1s, color .1s;
     }
-}
-#urlbar-searchmode-switcher {
-    height: 28px !important;
-}
-
-.tab-background { /*标签页背景*/
-    border-radius: var(--border-radius-small) !important;
-}
-:root:not([privatebrowsingmode]) :is(toolbarbutton, toolbarpaletteitem) ~ #tabbrowser-tabs
-, :root[privatebrowsingmode] :is(toolbarbutton:not(#firefox-view-button)
-, toolbarpaletteitem:not(#wrapper-firefox-view-button)) ~ #tabbrowser-tabs { /*隐藏分割线*/
-    border-inline-start: none !important;
-    padding-inline-start: 1px !important;
-    margin-inline-start: 0 !important;
-}
-#tabbrowser-tabs {/*标签页*/
-    .tab-close-button {
-        --tab-border-radius: calc(var(--border-radius-small) + 3px) !important;
-        border-radius: var(--border-radius-small);
-    }
-    &[orient="vertical"] { /*垂直标签页*/
-        .tab-background {
-            /*margin-block: 0 !important; /*缩小边距1*/
-            /*min-height: 0 !important; /*紧凑化*/
-        }
-        .tabbrowser-tab {
-            padding-block: 0 !important; /*缩小边距2*/
-        }
-        &{ /*新标签页按钮*/
-            #tabs-newtab-button { /*溢出前新标签页按钮
-                margin-block: 0 !important;*/
-                image {
-                    transform: translateY(-1px);
-                }
-            }
-            #vertical-tabs-newtab-button {/* 溢出后新标签页按钮
-                margin-block: -4px -3px !important;*/
-                label {
-                    transform: translateY(1px);
-                }
-            }
-        }
-        #tabbrowser-arrowscrollbox {
-            &::part(scrollbutton-up), &::part(scrollbutton-down) { /*显示溢出箭头(无用)*/
-                display: flex !important;
-            }
-        }
-    }
-}
-
-#tabbrowser-arrowscrollbox[orient="vertical"] {
-    &::part(scrollbutton-up), &::part(scrollbutton-down) {
-        display: flex !important;
-    }
-}
-
-#tabbrowser-arrowscrollbox[orient="vertical"] > #tabbrowser-arrowscrollbox-periphery > #tabs-newtab-button, #vertical-tabs-newtab-button {
-    border-radius: 4px !important;
 }
 
 /*带侧边栏时网页内容边角*/
@@ -224,7 +195,7 @@ toolbar { /*缩小工具栏按钮之间的距离*/
     #menubar-items {
         padding: 0 var(--toolbarbutton-outer-padding);
         menubar {
-            height: 100%;
+            height: var(--lkn-toolbarbutton-height);
             margin: 5px 0 0 0;
             max-height: 32px;
             menu {
@@ -233,32 +204,124 @@ toolbar { /*缩小工具栏按钮之间的距离*/
         }
     }
 }
-#TabsToolbar { /*水平标签页工具栏*/
-    &{ /*高度修改*/
-        margin-bottom: -5px !important;
-        max-height: 41px !important;
-        #TabsToolbar-customization-target {
-            transform: translateY(1px);
-        }
-    }
+
+/*水平标签页工具栏*/
+:root {/*高度修改*/
+    --tab-min-height: 32px !important;
+}
+#TabsToolbar {
+    margin-bottom: -2px !important;/*底边距修改*/
+    clip-path: inset(0 0 2px); /*避免重叠*/
     .titlebar-spacer[type="pre-tabs"] { /*去掉空白*/
         display: none !important;
     }
     #TabsToolbar-customization-target {
-        > :is(toolbarbutton, toolbaritem):first-child {
-            padding-inline-start: 1px !important;
+        > :is(toolbarbutton, toolbaritem):first-child { /*首个按钮*/
+            padding-inline-start: var(--tab-block-margin) !important;
+        }
+    }
+    #firefox-view-button { /*标签页栏FFView*/
+        margin: 0 !important;
+        padding: 0 calc(var(--tab-overflow-clip-margin)*3) !important;
+        #TabsToolbar:has(#firefox-view-button + #tabbrowser-tabs) & { /*正好在标签页前时*/
+            padding-inline-end: var(--tab-overflow-clip-margin) !important;
         }
     }
 }
-html:has(#vertical-tabs)[sizemode="maximized"]:has(#toolbar-menubar[autohide][inactive]) #nav-bar {
+html:has(#tabbrowser-tabs[orient="vertical"])[sizemode="maximized"] *:is(#nav-bar, #toolbar-menubar)
+>*:not(.titlebar-buttonbox-container, #menubar-items) {
 /*垂直标签页+最大化时整个顶栏的顶部都能拖，与 MS Edge 的行为一致*/
-    border-top: 1px solid transparent !important;
+    clip-path: inset(1px 0 0); /*改用clip-path避免影响顶栏高度*/
 }
 #nav-bar {
     /*隐藏掉奇怪的线*/
     border-top: none !important;
+    /*调整高度(不影响布局)*/
+    html:not(:has(#PersonalToolbar[collapsed])) & {
+        margin-block-end: -2px !important;
+        clip-path: inset(0 0 2px);
+    }
+    html:not(:has(#tabbrowser-tabs[orient="vertical"])) & {
+        margin-block: -3px -2px !important;
+        clip-path: inset(3px 0 2px);
+    }
     /*自适应高度*/
     height: calc(var(--toolbarbutton-inner-padding)*2 + 26px);
+}
+
+.tab-background { /*标签页背景*/
+    border-radius: var(--border-radius-small) !important;
+    transition: background .1s;
+}
+:root:not([privatebrowsingmode]) :is(toolbarbutton, toolbarpaletteitem) ~ #tabbrowser-tabs,
+:root[privatebrowsingmode] :is(
+    toolbarbutton:not(#firefox-view-button),toolbarpaletteitem:not(#wrapper-firefox-view-button)
+) ~ #tabbrowser-tabs { /*隐藏分割线*/
+    border-inline-start: none !important;
+    padding-inline-start: var(--tab-overflow-clip-margin) !important;
+    margin-inline-start: 0 !important;
+}
+#tabbrowser-tabs {/*标签页们*/
+    --lkn-original-tab-min-width-pref: var(--tab-min-width-pref);
+    .tabbrowser-tab[visuallyselected] { /*标签页栏拥挤时，当前所在标签页会展开*/
+        --tab-min-width-pref: calc(var(--lkn-original-tab-min-width-pref) + 60px);
+    }
+    .tab-close-button { /*关闭按钮*/
+        --tab-border-radius: calc(var(--border-radius-small) + 3px) !important;
+        border-radius: var(--border-radius-small);
+        transition: opacity .1s, background .1s;
+        /*悬停时显示关闭按钮(参考:FirefoxModBlur)*/
+        .tabbrowser-tab:not([pinned]) & {
+            display: flex !important;
+            visibility: collapse !important;
+            opacity: 0;
+        }
+        .tabbrowser-tab:not([pinned]):hover & {
+            visibility: visible !important;
+            opacity: 1;
+        }
+    }
+    &:not([orient="vertical"]) #tabs-newtab-button {
+        padding-inline-start: var(--tab-overflow-clip-margin) !important;
+    }
+    &[orient="vertical"] { /*垂直标签页*/
+        .tab-background {
+            /*margin-block: 0 !important; /*缩小边距1*/
+            /*min-height: 0 !important; /*紧凑化*/
+        }
+        .tabbrowser-tab:not([pinned]) {
+            padding-block: 0 !important; /*缩小边距2*/
+        }
+        &{ /*新标签页按钮*/
+            #tabs-newtab-button { /*溢出前新标签页按钮
+                margin-block: 0 !important;*/
+                image {
+                    transform: translateY(-1px);
+                }
+            }
+            #vertical-tabs-newtab-button {/* 溢出后新标签页按钮
+                margin-block: -4px -3px !important;*/
+                label {
+                    transform: translateY(1px);
+                }
+            }
+        }
+        #tabbrowser-arrowscrollbox {
+            &::part(scrollbutton-up), &::part(scrollbutton-down) { /*显示溢出箭头(无用)*/
+                display: flex !important;
+            }
+        }
+    }
+}
+
+#tabbrowser-arrowscrollbox[orient="vertical"] {
+    &::part(scrollbutton-up), &::part(scrollbutton-down) {
+        display: flex !important;
+    }
+}
+
+#tabbrowser-arrowscrollbox[orient="vertical"] > #tabbrowser-arrowscrollbox-periphery > #tabs-newtab-button, #vertical-tabs-newtab-button {
+    border-radius: 4px !important;
 }
 
 /*标签页切换动画*/
@@ -298,7 +361,11 @@ html#main-window #navigator-toolbox {
     padding-inline: 2px;
     opacity: 1 !important;
     transition: max-height .5s var(--lkn-timing-function-in0), opacity .4s, background .1s; /*出现*/
-    &[collapsed="true"] { /*隐藏时*/
+    &:not([collapsed]) {
+        margin-block-start: -3px !important;/*顶边距修改*/
+        clip-path: inset(3px 0 0);/*裁剪，避免重叠*/
+    }
+    &[collapsed] { /*隐藏时*/
         visibility: visible !important;
         opacity: 0.001 !important;
         transition: max-height .3s var(--lkn-timing-function-in0), opacity .2s, background .1s; /*消失*/
@@ -328,7 +395,7 @@ menu, menuitem, menucaption {
     }
 }*/
 :root { /*侧边栏应用 v2*/
-    --lukoning-sidebar-box-width: max(min(340px, 25vw), 220px);
+    --lkn-sidebar-box-width: max(min(340px, 25vw), 220px);
     #sidebar-splitter.sidebar-splitter {
         display: none !important;
     }
@@ -341,14 +408,14 @@ menu, menuitem, menucaption {
             opacity: 0;
         }
         stack {
-            width: var(--lukoning-sidebar-box-width) !important;
+            width: var(--lkn-sidebar-box-width) !important;
         }
     }
     #browser:not(:has(#sidebar-main[sidebar-positionend])) #sidebar-box {
         padding-right: 0 !important; /*左侧时与网页的边距*/
     }
     #browser:has(#sidebar-main[sidebar-positionend]) #sidebar-box {
-        transform: translateX(calc(var(--lukoning-sidebar-box-width) * -1));
+        transform: translateX(calc(var(--lkn-sidebar-box-width) * -1));
         margin-left: 0 !important; /*右侧时与网页的边距(居然与左侧的不统一…)*/
     }
     #tabbrowser-tabbox {
@@ -357,10 +424,10 @@ menu, menuitem, menucaption {
     }
     #browser:has(#sidebar-box:not([hidden])) {
         #tabbrowser-tabbox {
-            transform: translateX(round(calc(var(--lukoning-sidebar-box-width) + 6px), 1px));
+            transform: translateX(round(calc(var(--lkn-sidebar-box-width) + 6px), 1px));
         }
         &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
-            transform: translateX(round(calc(-1 * var(--lukoning-sidebar-box-width) - 6px), 1px));
+            transform: translateX(round(calc(-1 * var(--lkn-sidebar-box-width) - 6px), 1px));
         }
     }
 }
@@ -411,10 +478,10 @@ menu, menuitem, menucaption {
     #sidebar-launcher-splitter.sidebar-splitter {
         display: none !important;
     }
-    --lukoning-sidebar-width: 51.2333px;
-    --sidebar-launcher-collapsed-width: var(--lukoning-sidebar-width) !important;
+    --lkn-sidebar-width: 51.2333px;
+    --sidebar-launcher-collapsed-width: var(--lkn-sidebar-width) !important;
     #sidebar-main {
-        min-width: var(--lukoning-sidebar-width) !important;
+        min-width: var(--lkn-sidebar-width) !important;
         width: 0 !important;
         transition: min-width .4s var(--lkn-timing-function-in0), background .1s;
         &[sidebar-ongoing-animations] * {
@@ -463,49 +530,34 @@ menu, menuitem, menucaption {
             }
         }
     }
-    &{ /*挤压式展开 v2 优化版 优化个鬼！谁特么加动画加的脚本动画
-        #sidebar-main {
-            border: none !important;
-            transition: background .1s !important;
-            animation: none !important;
-            z-index: 0;
-            > html:sidebar-main {
-                animation: none !important;
-            }
-            .tabbrowser-tab {
-                max-width: none !important;
-                &[visuallyselected] {
-                    min-width: 51.2333px !important;
-                    width: 0 !important;
-                    transition: min-width .4s var(--lkn-timing-function-in0), background .1s;
-                }
-            }
-            &[sidebar-launcher-expanded], &[sidebar-ongoing-animations] {
-                min-width: max(220px, min(320px, 20vw)) !important;
-                width: max(220px, min(320px, 20vw)) !important;
-                max-width: max(220px, min(320px, 20vw)) !important;
-                &[sidebar-launcher-expanded] .tabbrowser-tab[visuallyselected] {
-                    min-width: max(220px, min(320px, 20vw)) !important;
-                }
-            }
-        }
-        #tabbrowser-tabbox {
-            transform: translateX(0);
-            transition: transform .4s var(--lkn-timing-function-in0);
-            z-index: 10;
-        }
-        #browser:has(#sidebar-main[sidebar-launcher-expanded]):not(:has(#sidebar-box:not([hidden]))) {
-            #tabbrowser-tabbox {
-                transform: translateX(round(calc(max(220px, min(320px, 20vw)) - 50px), 1px));
-            }
-            &:has(#sidebar-main[sidebar-positionend]) #tabbrowser-tabbox {
-                transform: translateX(round(calc((max(220px, min(320px, 20vw)) - 50px) * -1), 1px));
-            }
-        }*/
-    }
 }
-
 /*部分文本去掉省略号*/
 :is(label, description)[value][crop]::before {
     text-overflow: clip;
+}
+
+/*对话框弹出动画*/
+@keyframes lkn_dialogIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+@keyframes lkn_dialogBoxIn {
+    0% {
+        transform: translateY(30px) scale(0.8);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 1;
+    }
+}
+.dialogOverlay, #window-modal-dialog {
+    animation: lkn_dialogIn .4s .1s backwards var(--lkn-timing-function-in0);
+    .dialogBox {
+        animation: lkn_dialogBoxIn .3s .2s backwards var(--lkn-timing-function-in0);
+    }
 }

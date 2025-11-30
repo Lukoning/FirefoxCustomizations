@@ -1,10 +1,10 @@
 /* Copyright (c) 2025 Lukoning (https://github.com/Lukoning) */
 
 /*菜单(两种类型：menupopup与panel)*/
-:root:root:root *:not(#BMB_bookmarksPopup *) {
+:root:root:root * {
     &{
         --menuitem-border-radius: 4px;
-        --menuitem-margin: 0px;
+        /*--menuitem-margin: 0px;*/
         --menuitem-padding: .5em .6em;
         --arrowpanel-border-radius: 8px;
         --panel-border-radius: var(--arrowpanel-border-radius) !important;

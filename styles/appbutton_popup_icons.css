@@ -1,6 +1,6 @@
 /*
 **  Original work: Custom CSS tweaks for Firefox v4.7.5 by Aris-t2
-**  Last modified on Nov. 23, 2025 (UTC+8) by Lukoning (https://github.com/Lukoning)
+**  Last modified on Nov. 29, 2025 (UTC+8) by Lukoning (https://github.com/Lukoning)
 **
 **  This Source Code Form is subject to the terms of
 **  the Mozilla Public License, v. 2.0.
@@ -155,7 +155,7 @@
 
 #appMenu-report-broken-site-button > .toolbarbutton-icon {
   -moz-context-properties: fill;
-  list-style-image: url("chrome://global/skin/icons/trending.svg");
+  list-style-image: url("chrome://global/skin/icons/lightbulb.svg"); /*Lukoning: 与安卓版Firefox图标一致*/;
   padding-inline-end: 8px;
   fill: currentColor;
 }
@@ -539,7 +539,7 @@
 
 #appMenu_menu_HelpPopup_reportPhishingtoolmenu > .toolbarbutton-icon {
   -moz-context-properties: fill;
-  list-style-image: url("chrome://global/skin/icons/info.svg");
+  list-style-image: url("chrome://global/skin/icons/warning.svg");
   padding-inline-end: 8px;
   fill: currentColor;
 }
